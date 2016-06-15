@@ -141,8 +141,10 @@ WHERE ssc.conf_id ='$conf_id'");
                         <?php }?>
                     </center>
            </div></div>
-            <?php if($_REQUEST['method']=='back'){?>
-                <a href="http://localhost:808/service&support/fullcalendar/fullcalendar1.php"><img src="../images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทิน</a>
+            <?php if($_REQUEST['method']=='back'){
+                $select_url=  mysqli_query($db,"select url from hospital");
+                    $url=  mysqli_fetch_assoc($select_url);?>
+                <a href="<?= $url['url']?>service&support/fullcalendar/fullcalendar1.php"><img src="../images/undo.ico" width="20"  title="ย้อนกลับ"> กลับไปปฏิทิน</a>
                 <?php }?>
             
         </div>
