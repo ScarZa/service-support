@@ -73,7 +73,12 @@ function nextbox(e, id) {
 				 echo "<option value='".$result['empno']."' $selected>".$result['fullname'] ."</option>";
 				 } ?>
 			 </select> 
-                    </div><p><?php } ?>
+                    </div>
+                  <div class="form-group" > 
+                        <label for="obj">วันที่ขอ &nbsp;</label>
+                        <input type="date" value="<?=$edit_person['obj'];?>" NAME="record_date" id="record_date"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="" required>
+                    </div>
+                  <p><?php } ?>
                     <div class="form-group" > 
                         <label for="obj">เพื่อ &nbsp;</label>
                         <input value="<?=$edit_person['obj'];?>" NAME="obj" id="obj"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="วัตถุประสงค์ที่ต้องการใช้ห้องประชุม" size="80" required>

@@ -49,7 +49,11 @@ echo "<div class='alert alert-dismissable alert-success'>
     $obj = $_POST['obj'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
+    if(empty($_POST['record_date'])){
     $record_date=date('Y-m-d');
+    }  else {
+     $record_date=$_POST['record_date'];   
+}
     $start_time = $_POST['start_time'];
     $end_time = $_POST['end_time'];
     $amount = $_POST['amount'];
