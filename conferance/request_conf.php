@@ -76,7 +76,7 @@ function nextbox(e, id) {
                     </div>
                   <div class="form-group" > 
                         <label for="obj">วันที่ขอ &nbsp;</label>
-                        <input type="date" value="<?=$edit_person['obj'];?>" NAME="record_date" id="record_date"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="" required>
+                        <input type="date" value="<?=$edit_person['record_date'];?>" NAME="record_date" id="record_date"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="" required>
                     </div>
                   <p><?php } ?>
                     <div class="form-group" > 
