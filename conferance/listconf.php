@@ -18,7 +18,7 @@
 function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){   
 	global $e_page;
 	global $querystr;
-	$urlfile="index.php?page=car/add_car"; // ส่วนของไฟล์เรียกใช้งาน ด้วย ajax (ajax_dat.php)
+	$urlfile="index.php?page=conferance/add_conf"; // ส่วนของไฟล์เรียกใช้งาน ด้วย ajax (ajax_dat.php)
 	$per_page=10;
 	$num_per_page=floor($chk_page/$per_page);
 	$total_end_p=($num_per_page+1)*$per_page;
