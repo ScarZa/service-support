@@ -68,6 +68,10 @@ WHERE ssc.conf_id ='$conf_id'");
                         ?>
                         <table align="center" width='100%'>
                         <thead>
+                            <tr>
+                  <td width='50%' align="right" valign="top"><b>เลขที่คำขอ : </b></td>
+                  <td colspan="3">&nbsp;&nbsp;<?= $detial_l['conferance_no'];?></td>
+              </tr>
               <tr>
                   <td width='50%' align="right" valign="top"><b>ชื่อ-นามสกุล : </b></td>
                   <td colspan="3">&nbsp;&nbsp;<?= $detial_l['fullname'];?></td>
