@@ -1,8 +1,8 @@
 <?php
 $dbhost = 'localhost';
-$dbuser = 'rploeigo_hrd';
-$dbpass = 'gotoytoynoy';
-$dbname = 'rploeigo_hrd';
+$dbuser = 'root';
+$dbpass = 'usbw';
+$dbname = 'hrd';
 $db=new mysqli("$dbhost","$dbuser","$dbpass","$dbname");
 if($db->connect_errno) die ('Connect Failed! :'.mysqli_connect_error ());
 $db->set_charset('utf8');
