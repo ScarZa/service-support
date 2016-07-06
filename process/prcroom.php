@@ -1,10 +1,10 @@
 <?php session_start(); ?>
-<?php if(!empty($_POST['method'])){
-if($_POST['method'] == 'request_room' or $_POST['method'] == 'edit_conf'){
-        include 'option/jquery.php'; 
+<?php
+if($_POST['method'] == 'request_room' or $_POST['method'] == 'edit_room'){
+        include'option/jquery.php'; 
         include 'connection/connect.php';
 }else{
-        include '../option/jquery.php'; 
+        include'../option/jquery.php'; 
         include '../connection/connect.php';?>
 
 <?php
@@ -34,7 +34,7 @@ if (empty($_SESSION['ss_id'])) {
 <link rel="stylesheet" href="../option/css/stylelist.css">
 </head>
     <body>            
-<?php }}
+<?php }
 echo	 "<p>&nbsp;</p>	"; 
 echo	 "<p>&nbsp;</p>	";
 echo "<div class='bs-example'>
@@ -104,8 +104,9 @@ $conferance_no="$Y/$Ln";
                    mic_wireless='$mic_wireless', mic_line='$mic_line', visualizer='$visualizer',projector='$projector', comp='$comp', format='$format',
                       room='$room' where conf_id='$conf_id'");
 
+    $edit_event=mysqli_query($db,"update tbl_event set event_start='$start_date $start_time',event_end='$end_date $end_time' where workid='$conf_id' and process='2'");
 
-    if ($edit == false) {
+    if ($edit & $edit_event == false) {
         echo "<p>";
         echo "Update not complete" . mysqli_error($db);
         echo "<br />";
