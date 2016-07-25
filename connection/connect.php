@@ -1,7 +1,7 @@
 <?php
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = 'usbw';
+$dbpass = '';
 $dbname = 'hrd';
 $db=new mysqli("$dbhost","$dbuser","$dbpass","$dbname");
 if($db->connect_errno) die ('Connect Failed! :'.mysqli_connect_error ());

@@ -1,10 +1,10 @@
 <?php include 'connection/connect.php';  ?>
 <div class="row">
     <div class="col-lg-12">
-        <h1><font color='blue'>  รายงานการใช้น้ำมันเชื้อเพลิง </font></h1> 
+        <h1><font color='blue'>  รายงานการใช้งานรถยนต์ </font></h1> 
         <ol class="breadcrumb alert-warning">
             <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
-            <li class="active"><i class="fa fa-edit"></i> รายงานการใช้น้ำมันเชื้อเพลิง</li>
+            <li class="active"><i class="fa fa-edit"></i> รายงานการใช้งานรถยนต์</li>
         </ol>
     </div>
 </div>
@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                <h3 class="panel-title"><font color='brown'>ตารางรายงานการใช้น้ำมันเชื้อเพลิง</font></h3>
+                <h3 class="panel-title"><font color='brown'>ตารางรายงานการใช้งานรถยนต์</font></h3>
             </div>
             <div class="panel-body">
                 <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
@@ -107,100 +107,54 @@
     $license_id=$_POST['license_plate'];            
     $sel_license_plate=  mysqli_query($db, "select license_name from ss_carlicense where license_id='$license_id'");
     $license_plate= mysqli_fetch_assoc($sel_license_plate);
-
-    $q="SELECT * from ss_detial_oil        where reg_date between '$take_month1' and '$take_month2' and license_id='$license_id'
-        order by do_id";
+    $q="SELECT d.depName,COUNT(ssc.car_id) AS time,SUM(ssc.distance)AS dist
+FROM ss_car ssc
+INNER JOIN emppersonal emp ON emp.empno=ssc.empno_request
+INNER JOIN department d ON d.depId=emp.depid
+WHERE ssc.license_plate=$license_id and (ssc.start_date between '$take_month1' and '$take_month2')
+GROUP BY d.depId ORDER BY dist DESC";
     $qr = mysqli_query($db,$q);
-    
-    $sql_bath=  mysqli_query($db, "SELECT sum(liter) as sumliter, sum(bath) as sumbath from ss_detial_oil where other='1' and reg_date between '$take_month1' and '$take_month2' and license_id='$license_id'");
-    $sumcash=  mysqli_fetch_assoc($sql_bath);
-    $sql_bill=  mysqli_query($db, "SELECT sum(liter) as sumliter, sum(bath) as sumbath from ss_detial_oil where other='2' and reg_date between '$take_month1' and '$take_month2' and license_id='$license_id'");
-    $sumbill=  mysqli_fetch_assoc($sql_bill);
-
        }         ?>
 
                     <?php include_once ('option/funcDateThai.php'); ?>
-                <a class="btn btn-success" download="report_oil<?= $license_plate['license_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
+                <a class="btn btn-success" download="report_drive_out_<?= $license_plate['license_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
                 <table  id="datatable"  align="center" width="100%" border="1">
                     <tr align="center">
-                        <td colspan="11"><h4>รายงานการใช้น้ำมันเชื้อเเพลิง</h4></td>
+                        <td colspan="4"><h4>รายงานการใช้งานรถยนต์</h4></td>
                     </tr>
                     <tr align="center">
-                        <td colspan="11"><b>ประจำปีงบประมาณ <?= $years?> เดือน  <?= $month['month_name']?></b></td>
+                        <td colspan="4"><b>ประจำปีงบประมาณ <?= $years?> เดือน  <?= $month['month_name']?></b></td>
                     </tr>
                     <tr align="center">
-                        <td colspan="11"><b>รถยนต์หมายเลขทะเบียน <?= $license_plate['license_name']?> เกณฑ์การใช้น้ำมัน............................... กม./ลิตร</b></td>
+                        <td colspan="4"><b>รถยนต์หมายเลขทะเบียน <?= $license_plate['license_name']?> </b></td>
                     </tr>
                     <tr align="center" >
-                        <td width="3%" rowspan="2" align="center" bgcolor="#898888"><b>ลำดับ</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>วัน/เดือน/ปี</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>เลขไมล์ครั้งก่อน</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>เลขไมล์ครั้งนี้</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>รวมระยะทาง</b></td>
-                        <td width="18%" colspan="2" align="center" bgcolor="#898888"><b>จำนวนเติมครั้งสุดท้าย</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>ลิตรละ</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>ค่าเฉลี่ย (กม./ลิตร)</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>ค่าซ่อมบำรุง</b></td>
-                        <td width="9%" rowspan="2" align="center" bgcolor="#898888"><b>หมายเหตุ</b></td>
+                        <td width="3%" align="center" bgcolor="#898888"><b>ลำดับ</b></td>
+                        <td width="9%" align="center" bgcolor="#898888"><b>หน่วยงาน</b></td>
+                        <td width="9%" align="center" bgcolor="#898888"><b>จำนวนครั้งที่ออก</b></td>
+                        <td width="9%" align="center" bgcolor="#898888"><b>ระยะทาง( ก.ม. )</b></td>
                      </tr>
-                    <tr align="center">
-                        <td align="center" bgcolor="#898888"><b>จำนวนลิตร</b></td>
-                        <td align="center" bgcolor="#898888"><b>จำนวนเงิน</b></td>
-                    </tr>
-
                     <?php if (!empty($_POST['year'])) {
                     $i = 1; $I=0;
                     while ($result = mysqli_fetch_assoc($qr)) {
                         ?>
                         <tr>
                             <td align="center"><?= ($chk_page * $e_page) + $i ?></td>
-                            <td align="center"><?= DateThai1($result['reg_date']); ?></td>
-                            <td align="center"><?= $result['pass_mile']; ?></td>
-                            <td align="center"><?= $result['this_mile']; ?></td>
-                            <td align="center"><?= $distance[$I]=$result['this_mile']-$result['pass_mile']; ?></td>
-                            <td align="center"><?= $oil[$I]=$result['liter']; ?></td>
-                            <td align="center"><?= $bath[$I]=$result['bath']; ?></td>
-                            <td align="center"><?= $liter[$I]= round($result['bath']/$result['liter'],2); ?></td>
-                            <td align="center"><?= $average[$I]= round($distance[$I]/$result['liter'],2); ?></td>
-                            <td align="center"><?= $maintenance[$I]= $result['maintenance']; ?></td>
-                            <td align="center"><?php if($result['other']=='1'){ echo 'เงินสด';}elseif ($result['other']=='2') { echo 'บิลน้ำมัน';} ?></td>
-                            
+                            <td align="center"><?= $result['depName']?></td>
+                            <td align="center"><?= $time[$I]=$result['time']; ?></td>
+                            <td align="center"><?= $dist[$I]=$result['dist']; ?></td>
                         </tr>
                     <?php $i++;$I++; 
-                    }if(!empty($distance)){
-                     $sumdistance=array_sum ($distance);
-                     $sumoil=array_sum ($oil);
-                     $sumbath=array_sum ($bath);
-                     $summaintenance=array_sum ($maintenance);
+                    }if(!empty($time)){
+                     $sumtime=array_sum ($time);
+                     $sumdist=array_sum ($dist);
                     }
                             }
                 ?>
                         <tr>
-                            <td colspan="11"></td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="4" bgcolor="#898888"><b>รวม</b></td>
-                            <td align="center"><?= $sumdistance?></td>
-                            <td align="center"><?= $sumoil?></td>
-                            <td align="center"><?= $sumbath?></td>
-                            <td align="center"></td>
-                            <td align="center"><?php if(!empty($distance)){ echo round($sumdistance/$sumoil,2);}?></td>
-                            <td align="center"><?= $summaintenance?></td>
-                            <td align="center"></td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="4" bgcolor="#898888"><b>เงินสด</b></td>
-                            <td align="center"></td>
-                            <td align="center"><?= $sumcash['sumliter']?></td>
-                            <td align="center"><?= $sumcash['sumbath']?></td>
-                            <td align="center" colspan="4"></td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="4" bgcolor="#898888"><b>บิลน้ำมัน</b></td>
-                            <td align="center"></td>
-                            <td align="center"><?= $sumbill['sumliter']?></td>
-                            <td align="center"><?= $sumbill['sumbath']?></td>
-                            <td align="center" colspan="4"></td>
+                            <td align="center" colspan="2" bgcolor="#898888"><b>รวม</b></td>
+                            <td align="center"><?= $sumtime?></td>
+                            <td align="center"><?= $sumdist?></td>
                         </tr>
                 </table>
             </div>

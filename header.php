@@ -198,6 +198,7 @@
                                         <li class="divider"></li>
                                         <li><a href="index.php?page=car/report_oil"><img src='images/space-rocket.ico' width='25'> รายงานการใช้น้ำมันเชื้อเพลิง</a></li>
                                         <li><a href="index.php?page=car/report_work_car"><img src='images/run.ico' width='25'> รายงานผลการปฏิบัติงาน</a></li>
+                                        <li><a href="index.php?page=car/report_drive_out"><img src='images/Vroum Vroum.ico' width='25'> รายงานการใช้รถยนต์</a></li>
                                     </ul>            
                             </li><?php }}?>
                             <li><a href="#">&nbsp;</a></li>
