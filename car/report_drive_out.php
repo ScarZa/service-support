@@ -17,7 +17,7 @@
             <div class="panel-body">
                 <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
                     <div class="form-group">
-                        <select name="license_plate" id="license_plate"  class="form-control" required=""> 
+                        <select name="license_plate" id="license_plate"  class="form-control"> 
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
 				 echo "<option value=''>--เลือกรถยนต์--</option>";
 				 while( $result = mysqli_fetch_assoc( $sql ) ){
@@ -45,7 +45,8 @@
                                 ?>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-success">ตกลง</button> 						
+                    <button type="submit" class="btn btn-success">ตกลง</button><br> 
+                        <font style="color: red">*** หากต้องการดูการใช้รถยนต์ทั้งหมด ไม่ต้องเลือกรถ ***</font>
                     </form>
                 <?php
                include 'option/function_date.php';
@@ -103,15 +104,20 @@
                  $this_year=$y;
                  $ago_year=$Y;   
                 }
-    }  
-    $license_id=$_POST['license_plate'];            
+    } 
+    if(!empty($_POST['license_plate'])){
+    $license_id=$_POST['license_plate'];  
+    $code_license_id="and ssc.license_plate=$license_id";
+    }  else {
+    $code_license_id="";    
+    }
     $sel_license_plate=  mysqli_query($db, "select license_name from ss_carlicense where license_id='$license_id'");
     $license_plate= mysqli_fetch_assoc($sel_license_plate);
     $q="SELECT d.depName,COUNT(ssc.car_id) AS time,SUM(ssc.distance)AS dist
 FROM ss_car ssc
-INNER JOIN emppersonal emp ON emp.empno=ssc.empno_request
+LEFT OUTER JOIN emppersonal emp ON emp.empno=ssc.empno_request
 INNER JOIN department d ON d.depId=emp.depid
-WHERE ssc.license_plate=$license_id and (ssc.start_date between '$take_month1' and '$take_month2')
+WHERE (ssc.start_date between '$take_month1' and '$take_month2') $code_license_id
 GROUP BY d.depId ORDER BY dist DESC";
     $qr = mysqli_query($db,$q);
        }         ?>
