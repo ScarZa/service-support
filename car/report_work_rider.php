@@ -1,7 +1,7 @@
 <?php include 'connection/connect.php';  ?>
 <div class="row">
     <div class="col-lg-12">
-        <h1><font color='blue'>  ข้อมูลรายละเอียดผลการปฏิบัติงานของงานยานพาหนะ </font></h1> 
+        <h1><font color='blue'>  ข้อมูลรายละเอียดผลการปฏิบัติงานของพนักงานขับรถ </font></h1> 
         <ol class="breadcrumb alert-warning">
             <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก</a></li>
             <li class="active"><i class="fa fa-edit"></i> ข้อมูลรายละเอียดผลการปฏิบัติงาน</li>
@@ -12,7 +12,7 @@
     <div class="col-lg-12">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                <h3 class="panel-title"><font color='brown'>ตารางข้อมูลรายละเอียดผลการปฏิบัติงาน</font></h3>
+                <h3 class="panel-title"><font color='brown'>ตารางข้อมูลรายละเอียดผลการปฏิบัติงานของพนักงานขับรถ</font></h3>
             </div>
             <div class="panel-body">
                 <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
@@ -103,7 +103,7 @@
 (select sum(ssc.distance) from ss_car ssc where pay='Y' and approve='Y' and emp.empno=ssc.rider and (ssc.start_date between '$take_month1' and '$take_month2'))sum_distance
 from ss_car ssc
 INNER JOIN emppersonal emp ON emp.empno=ssc.rider
-group by ssc.rider";
+group by ssc.rider order by sum_distance desc";
     $qr = mysqli_query($db,$q);
        }         ?>
 
@@ -111,7 +111,7 @@ group by ssc.rider";
                 <a class="btn btn-success" download="report_work_<?= $month['month_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
                 <table  id="datatable"  align="center" width="100%" border="1">
                     <tr align="center">
-                        <td colspan="14"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของงานยานพาหนะ</h4></td>
+                        <td colspan="14"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของพนักงานขับรถ</h4></td>
                     </tr>
                     <tr align="center">
                         <td colspan="14"><b>ปีงบประมาณ <?= $years?>  ประจำเดือน <?= $month['month_name']?></b></td>
