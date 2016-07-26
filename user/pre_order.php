@@ -13,7 +13,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><font color='brown'>ตารางบันทึกสถานะการขอใช้ห้องประชุม/รถยนต์</font></h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <?php
 
                 include 'connection/connect.php';                
@@ -53,10 +53,11 @@ order by ssc.car_id desc";
 
                 
                 ?>
-
+                <div class="table-responsive">
                     <?php include_once ('option/funcDateThai.php'); ?>
                 <div align="center"><h4><b>สถานะการขอใช้ห้องประชุม</b></h4></div>
-                <table align="center" width="100%" border="1">
+                    <table align="center" width="100%" class="table-responsive table-bordered table-hover">
+                        <thead>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>
@@ -67,7 +68,8 @@ order by ssc.car_id desc";
                         <td width="6%" align="center"><b>จำนวนผู้เข้าร่วม</b></td>
                         <td width="6%" align="center"><b>สถานะ</b></td>
                     </tr>
-
+                        </thead>
+                        <tbody>
                     <?php
                     $i = 1;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -97,10 +99,12 @@ order by ssc.car_id desc";
                     <?php $i++;
                 }
                 ?>
-
-                </table><br>
+                        </tbody>
+                    </table></div><br>
+                    <div class="table-responsive">
                 <div align="center"><h4><b>สถานะการขอใช้รถยนต์</b></h4></div>
-                <table align="center" width="100%" border="1">
+                <table align="center" width="100%" class="table-responsive table-bordered table-hover">
+                    <thead>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>
@@ -112,7 +116,8 @@ order by ssc.car_id desc";
                         <td width="6%" align="center"><b>สถานะ</b></td>
                         <td width="6%" align="center"><b>พิมพ์แบบขออนุญาต</b></td>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <?php
                     $c = 1;
                     while ($result2 = mysqli_fetch_assoc($qr2)) {
@@ -154,8 +159,9 @@ order by ssc.car_id desc";
                     <?php $c++;
                 }
                 ?>
-
+                    </tbody>
                 </table>
+                    </div>
             </div>
         </div>
     </div>

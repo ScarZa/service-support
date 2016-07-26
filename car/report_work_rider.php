@@ -108,8 +108,10 @@ group by ssc.rider order by sum_distance desc";
        }         ?>
 
                     <?php include_once ('option/funcDateThai.php'); ?>
-                <a class="btn btn-success" download="report_work_<?= $month['month_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
-                <table  id="datatable"  align="center" width="100%" border="1">
+                <div class="table-responsive">
+                <a class="btn btn-success" download="report_rider_<?= $month['month_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
+                <table  id="datatable"  align="center" width="100%" class="table table-responsive table-hover table-bordered">
+                    <thead>
                     <tr align="center">
                         <td colspan="14"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของพนักงานขับรถ</h4></td>
                     </tr>
@@ -128,7 +130,8 @@ group by ssc.rider order by sum_distance desc";
                       <td width="8%" align="center" bgcolor="#898888"><strong>จำนวนครั้ง</strong></td>
                       <td width="8%" align="center" bgcolor="#898888"><strong>ระยะทาง</strong></td>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <?php if (!empty($_POST['year'])) {
                     $i = 1;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -144,8 +147,9 @@ group by ssc.rider order by sum_distance desc";
                     <?php $i++;
                     }}
                 ?>
-
+                    </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

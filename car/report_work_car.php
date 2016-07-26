@@ -113,10 +113,11 @@ left outer join ss_oil_type ot on ot.oil_id=do.oil_type
 group by cl.license_id";
     $qr = mysqli_query($db,$q);
        }         ?>
-
+<div class="table-responsive">
                     <?php include_once ('option/funcDateThai.php'); ?>
                 <a class="btn btn-success" download="report_work_<?= $month['month_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
-                <table  id="datatable"  align="center" width="100%" border="1">
+                <table  id="datatable"  align="center" width="100%" class="table table-responsive table-bordered table-hover">
+                    <thead>
                     <tr align="center">
                         <td colspan="14"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของงานยานพาหนะ</h4></td>
                     </tr>
@@ -141,7 +142,8 @@ group by cl.license_id";
                         <td width="8%" align="center" bgcolor="#898888"><strong>จำนวนลิตร</strong></td>
                         <td width="8%" align="center" bgcolor="#898888"><b>จำนวนเงิน</b></td>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <?php if (!empty($_POST['year'])) {
                     $i = 1;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -163,8 +165,9 @@ group by cl.license_id";
                     <?php $i++;
                     }}
                 ?>
-
+                    </tbody>
                 </table>
+</div>
             </div>
         </div>
     </div>

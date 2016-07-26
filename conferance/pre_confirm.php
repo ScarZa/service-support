@@ -36,9 +36,10 @@ if($date >= $bdate and $date <= $edate){
 
                 
                 ?>
-
+                <div class="table-responsive">
                     <?php include_once ('option/funcDateThai.php'); ?>
-                <table align="center" width="100%" border="1">
+                    <table align="center" width="100%" class="table-responsive table-bordered table-hover">
+                        <thead>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>
@@ -52,7 +53,8 @@ if($date >= $bdate and $date <= $edate){
                         <td width="6%" align="center"><b>แก้ไข</b></td>
                         <?php }?>
                     </tr>
-
+                        </thead>
+                        <tbody>
                     <?php
                     $i = 1;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -76,8 +78,9 @@ if($date >= $bdate and $date <= $edate){
                     <?php $i++;
                 }
                 ?>
-
+                        </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

@@ -85,9 +85,10 @@ $total_p=ceil($total/$e_page);
 $before_p=($chk_page*$e_page)+1;  
 echo mysqli_error($db);
                 ?>
-
+                <div class="table-responsive">
                     <?php include_once ('option/funcDateThai.php'); ?>
-                <table align="center" width="100%" border="1">
+                    <table align="center" width="100%" class="table-responsive table-bordered table-hover">
+                        <thead>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>
@@ -104,7 +105,8 @@ echo mysqli_error($db);
                         <td width="4%" align="center"><b>แก้ไข</b></td>
                         <?php }?>
                     </tr>
-
+                        </thead>
+                        <tbody>
                     <?php
                     $i = 1;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -147,8 +149,9 @@ echo mysqli_error($db);
                     <?php $i++;
                 }
                 ?>
-
+                        </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

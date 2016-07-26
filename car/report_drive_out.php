@@ -123,8 +123,10 @@ GROUP BY d.depId ORDER BY dist DESC";
        }         ?>
 
                     <?php include_once ('option/funcDateThai.php'); ?>
+                <div class="table-responsive">
                 <a class="btn btn-success" download="report_drive_out_<?= $license_plate['license_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
-                <table  id="datatable"  align="center" width="100%" border="1">
+                <table  id="datatable"  align="center" width="100%" border="" class="table table-responsive table-bordered table-hover">
+                    <thead>
                     <tr align="center">
                         <td colspan="4"><h4>รายงานการใช้งานรถยนต์</h4></td>
                     </tr>
@@ -140,6 +142,8 @@ GROUP BY d.depId ORDER BY dist DESC";
                         <td width="9%" align="center" bgcolor="#898888"><b>จำนวนครั้งที่ออก</b></td>
                         <td width="9%" align="center" bgcolor="#898888"><b>ระยะทาง( ก.ม. )</b></td>
                      </tr>
+                    </thead>
+                    <tbody>
                     <?php if (!empty($_POST['year'])) {
                     $i = 1; $I=0;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -156,13 +160,16 @@ GROUP BY d.depId ORDER BY dist DESC";
                      $sumdist=array_sum ($dist);
                     }
                             }
-                ?>
+                            ?></tbody>
+                    <tfoot>
                         <tr>
                             <td align="center" colspan="2" bgcolor="#898888"><b>รวม</b></td>
                             <td align="center"><?= $sumtime?></td>
                             <td align="center"><?= $sumdist?></td>
                         </tr>
+                    </tfoot>
                 </table>
+                </div>
             </div>
         </div>
     </div>

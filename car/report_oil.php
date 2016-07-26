@@ -118,10 +118,11 @@
     $sumbill=  mysqli_fetch_assoc($sql_bill);
 
        }         ?>
-
+                <div class="table-responsive">
                     <?php include_once ('option/funcDateThai.php'); ?>
                 <a class="btn btn-success" download="report_oil<?= $license_plate['license_name']?>.xls" href="#" onClick="return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a><br><br>
-                <table  id="datatable"  align="center" width="100%" border="1">
+                <table  id="datatable"  align="center" width="100%" class="table table-responsive table-bordered table-hover">
+                    <thead>
                     <tr align="center">
                         <td colspan="11"><h4>รายงานการใช้น้ำมันเชื้อเเพลิง</h4></td>
                     </tr>
@@ -147,7 +148,8 @@
                         <td align="center" bgcolor="#898888"><b>จำนวนลิตร</b></td>
                         <td align="center" bgcolor="#898888"><b>จำนวนเงิน</b></td>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <?php if (!empty($_POST['year'])) {
                     $i = 1; $I=0;
                     while ($result = mysqli_fetch_assoc($qr)) {
@@ -166,6 +168,7 @@
                             <td align="center"><?php if($result['other']=='1'){ echo 'เงินสด';}elseif ($result['other']=='2') { echo 'บิลน้ำมัน';} ?></td>
                             
                         </tr>
+                    
                     <?php $i++;$I++; 
                     }if(!empty($distance)){
                      $sumdistance=array_sum ($distance);
@@ -178,6 +181,8 @@
                         <tr>
                             <td colspan="11"></td>
                         </tr>
+                        </tbody>
+                    <tfoot>
                         <tr>
                             <td align="center" colspan="4" bgcolor="#898888"><b>รวม</b></td>
                             <td align="center"><?= $sumdistance?></td>
@@ -202,7 +207,9 @@
                             <td align="center"><?= $sumbill['sumbath']?></td>
                             <td align="center" colspan="4"></td>
                         </tr>
+                    </tfoot>
                 </table>
+                </div>
             </div>
         </div>
     </div>
