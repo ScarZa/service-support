@@ -9,7 +9,7 @@ if($_GET['gData']){
     $main_dep=$_SESSION[main_dep];
     $event_array=array();  
     $i_event=0;
-    $code_color=array("1"=>"#1e6c06","2"=>"#930606","3"=>"#416cbb","4"=>"purple","5"=>"#d92727","6"=>"orange","7"=>"yellow");
+    $code_color=array("1"=>"#68bd60","2"=>"#6a6a6a","3"=>"#416cbb","4"=>"#977dd1","5"=>"#ec8b00","6"=>"#ec73c8","7"=>"yellow");
     $q="SELECT * FROM tbl_event WHERE date(event_start)>='".$_GET['start']."'  ";    
     $q.=" AND date(event_end)<='".$_GET['end']."' and process='3' ORDER by event_id";    
     $qr=mysqli_query($db,$q) or die(mysqli_error($db));
