@@ -1,7 +1,7 @@
 <?php
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = '';
+$dbpass = '1234';
 $dbname = 'hrd';
 $dbport = '3306';
 $db=new mysqli("$dbhost","$dbuser","$dbpass","$dbname","$dbport");

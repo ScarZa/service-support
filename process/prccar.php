@@ -254,6 +254,36 @@ if($approve=='N'){
     } else {?>
             <center><a href="#" class="btn btn-primary" onclick="javascript:window.parent.opener.document.location.href='../index.php?page=car/pre_confirm'; window.close();">ปิดหน้าต่าง</a></center>
        <?php }
+}else if ($_POST['method'] == 'edit_oil') {
+    include '../connection/connect.php';
+    $do_id=$_POST['do_id'];
+    $license_id=$_POST['license_id'];
+    $reg_date=$_POST['reg_date'];
+    $empno_record=$_SESSION['ss_id'];
+    $pass_mile=$_POST['pass_mile'];
+    $this_mile=$_POST['this_mile'];
+    $oil_type=$_POST['oil_type'];
+    $liter=$_POST['liter'];
+    $bath=$_POST['bath'];
+    $maintenance=$_POST['maintenance'];
+    $other=$_POST['other'];
+    
+    $detial_oil=  mysqli_query($db, "update ss_detial_oil set license_id='$license_id', reg_date='$reg_date', empno_report='$empno_record', pass_mile='$pass_mile',
+            this_mile='$this_mile', oil_type='$oil_type', liter='$liter', bath='$bath', maintenance='$maintenance', other='$other'
+            where do_id=$do_id");
+
+    if ($detial_oil == false) {
+        echo "<p>";
+        echo "Process not complete" . mysqli_error($db);
+        echo "<br />";
+        echo "<br />";
+
+        echo "	<span class='glyphicon glyphicon-remove'></span>";
+        echo "<a href='../car/record_oil.php' >กลับ</a>";
+    
+    } else {?>
+            <center><a href="#" class="btn btn-primary" onclick="javascript:window.parent.opener.document.location.href='../index.php?page=car/listoil&license_plate=<?= $license_id?>'; window.close();">ปิดหน้าต่าง</a></center>
+       <?php }
 }else if ($_POST['method'] == 'edit_mile_car') {
     include '../connection/connect.php';
     

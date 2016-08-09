@@ -195,6 +195,7 @@
                                         <li><a href="index.php?page=car/pre_cancle"><img src='images/Lfolder.ico' width='25'> บันทึกไม่อนุมัติ/ยกเลิกรถยนต์</a></li>
                                         <li class="divider"></li>
                                         <li><a href="#" onclick="return popup('car/record_oil.php?method=sel_car',popup,550,550);"><img src='images/Gas-pump.ico' width='25'> บันทึกการเติมน้ำมัน</a></li>
+                                        <li><a href="?page=car/listoil"><img src='images/vehicles-27.ico' width='25'> รายการการเติมน้ำมัน</a></li>
                                         <li class="divider"></li>
                                         <li><a href="index.php?page=car/report_oil"><img src='images/space-rocket.ico' width='25'> รายงานการใช้น้ำมันเชื้อเพลิง</a></li>
                                         <li><a href="index.php?page=car/report_work_car"><img src='images/run.ico' width='25'> รายงานผลการปฏิบัติงาน</a></li>
