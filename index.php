@@ -178,10 +178,13 @@ if (isset($_SESSION['ss_id'])) {
                     echo mysql_error();?>
                     <!--<script src="report_rm/highcharts.js"></script>
                     <script src="report_rm/exporting.js"></script>
-                    <script type="text/javascript" src="report_rm/jquery.js"></script>-->
+                    <script type="text/javascript" src="report_rm/jquery.js"></script>
                     <script src="http://code.highcharts.com/highcharts.js"></script>
                     <script src="http://code.highcharts.com/modules/exporting.js"></script>
-                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+                    <script src="option/Highcharts/js/highcharts.js"></script>
+                    <script src="option/Highcharts/js/modules/exporting.js"></script>
+                    <script type="text/javascript" src="option/Highcharts/api/js/j"></script>
                     <script type="text/javascript">
                         $(function () {
                             var chart;
