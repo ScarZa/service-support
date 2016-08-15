@@ -1,9 +1,9 @@
 <?php
 $dbhost = 'localhost';
 $dbuser = 'root';
-$dbpass = '1234';
+$dbpass = 'usbw';
 $dbname = 'hrd';
-$dbport = '3306';
+$dbport = '3307';
 $db=new mysqli("$dbhost","$dbuser","$dbpass","$dbname","$dbport");
 if($db->connect_errno) die ('Connect Failed! :'.mysqli_connect_error ());
 $db->set_charset('utf8');
