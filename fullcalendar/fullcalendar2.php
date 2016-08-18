@@ -52,7 +52,7 @@
 <?php
 include '../connection/connect.php';
 $li_car=  mysqli_query($db, "SELECT license_name FROM ss_carlicense ORDER BY license_id ASC") or die(mysqli_error($db));
-$code_color=array("1"=>"#68bd60","2"=>"#6a6a6a","3"=>"#416cbb","4"=>"#977dd1","5"=>"#ec8b00","6"=>"#ec73c8","7"=>"yellow");
+$code_color=array("1"=>"#416cbb","2"=>"#6a6a6a","3"=>"#68bd60","4"=>"#977dd1","5"=>"#ec8b00","6"=>"#ec73c8","7"=>"yellow");
 //$code_color=array("1"=>"#1e6c06","2"=>"#930606","3"=>"#416cbb","4"=>"purple","5"=>"#d92727","6"=>"orange","7"=>"yellow");
 $i=1;
 while ($row = mysqli_fetch_array($li_car)) {  ?>
