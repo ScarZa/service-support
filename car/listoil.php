@@ -42,7 +42,8 @@ if(!empty($_GET['method'])){
 function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){   
 	global $e_page;
 	global $querystr;
-	$urlfile="index.php?page=car/pre_confirm"; // ส่วนของไฟล์เรียกใช้งาน ด้วย ajax (ajax_dat.php)
+        $license_plate=$_REQUEST['license_plate'];
+	$urlfile="index.php?page=car/listoil"; // ส่วนของไฟล์เรียกใช้งาน ด้วย ajax (ajax_dat.php)
 	$per_page=10;
 	$num_per_page=floor($chk_page/$per_page);
 	$total_end_p=($num_per_page+1)*$per_page;
@@ -53,16 +54,16 @@ function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){
 	$pNext=($pNext>=$total_p)?$total_p-1:$pNext;		
 	$lt_page=$total_p-4;
 	if($chk_page>0){  
-		echo "<a  href='$urlfile&s_page=$pPrev".$querystr."' class='naviPN'>Prev</a>";
+		echo "<a  href='$urlfile&license_plate=$license_plate&s_page=$pPrev".$querystr."' class='naviPN'>Prev</a>";
 	}
 	for($i=$total_start_p;$i<$total_end_p;$i++){  
 		$nClass=($chk_page==$i)?"class='selectPage'":"";
 		if($e_page*$i<=$total){
-		echo "<a href='$urlfile&s_page=$i".$querystr."' $nClass  >".intval($i+1)."</a> ";   
+		echo "<a href='$urlfile&license_plate=$license_plate&s_page=$i".$querystr."' $nClass  >".intval($i+1)."</a> ";   
 		}
 	}		
 	if($chk_page<$total_p-1){
-		echo "<a href='$urlfile&s_page=$pNext".$querystr."'  class='naviPN'>Next</a>";
+		echo "<a href='$urlfile&license_plate=$license_plate&s_page=$pNext".$querystr."'  class='naviPN'>Next</a>";
 	}
 }  
                 include 'option/function_date.php';
