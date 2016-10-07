@@ -38,29 +38,39 @@
                         <button type="submit" class="btn btn-success">ตกลง</button> 						
                     </form>
                 <?php
-               include 'option/function_date.php';
+               
                 
                 if (!empty($_POST['year'])) {
                     $year = $_POST['year'] - 543;
+                    include 'option/function_date.php';
                     $years = $year + 543;
                     $sql_month = mysqli_query($db,"SELECT month_name FROM month where month_id='".$_POST['month_id']."'");
                     $month = mysqli_fetch_assoc( $sql_month );
                     
                     if($date >= $bdate and $date <= $edate){
-                $take_month=$_POST['month'];                      
+                $take_month=$_POST['month_id'];                      
                
-                             $y= $Yy;
-                             $Y= date("Y");
-                             $take_month1="$Y-$take_month-01";
-                             if($take_month=='4' or $take_month=='6' or $take_month=='9' or $take_month=='11'){
-                               $take_month2="$Y-$take_month-30";  
+                             if($take_month=='1' or $take_month=='2' or $take_month=='3' or $take_month=='4' or $take_month=='5' or $take_month=='6' or $take_month=='7' or $take_month=='8' or $take_month=='9'){
+                            $take_month1="$y-$take_month-01";
+                             if($take_month=='4' or $take_month=='6' or $take_month=='9'){
+                            $take_month2="$y-$take_month-30";  
                              }elseif ($take_month=='2') {
-                               $take_month2="$Y-$take_month-29"; 
+                            $take_month2="$y-$take_month-29"; 
                             }else{
-                             $take_month2="$Y-$take_month-31";
+                             $take_month2="$y-$take_month-31";
                             }
                              $take_date1="$Y-10-01";
-                             $take_date2="$y-09-30";
+                             $take_date2="$y-09-30"; 
+                }elseif($take_month=='10' or $take_month=='11' or $take_month=='12') {
+                    $take_month1="$Y-$take_month-01";
+                    if($take_month=='11'){
+                        $take_month2="$Y-$take_month-30"; 
+                    }else{
+                        $take_month2="$Y-$take_month-31";
+                            }
+                            $take_date1="$Y-10-01";
+                            $take_date2="$y-09-30";
+                }
     }  else {
                 $take_month=$_POST['month_id'];
                 

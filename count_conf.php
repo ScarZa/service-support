@@ -17,7 +17,7 @@ $sql = mysqli_query($db,"select count(conf_id) AS countconf from ss_conferance W
                                                                         INNER JOIN department d ON d.depId = e.depid
                                                                         INNER JOIN ss_room r ON r.room_id = ssc.room
                                                                         WHERE ISNULL( approve ) 
-                                                                        ORDER BY ssc.conf_id");
+                                                                        ORDER BY ssc.conf_id desc");
                                             while ($result2 = mysqli_fetch_assoc($sql2)) {
                                                 ?>
                                                 <li><a href="#" onclick="return popup('conferance/confirm_conf.php?id=<?= $result2['conf_id']; ?>&method=confirm_conf',popup,550,550);">
@@ -52,7 +52,7 @@ $sql = mysqli_query($db,"select count(car_id) AS countcar from ss_car WHERE isnu
                                                                         INNER JOIN emppersonal e ON e.empno = ssc.empno_request
                                                                         INNER JOIN department d ON d.depId = e.depid
                                                                         WHERE ISNULL( payer ) 
-                                                                        ORDER BY ssc.car_id");
+                                                                        ORDER BY ssc.car_id desc");
                                             while ($result2 = mysqli_fetch_assoc($sql2)) {
                                                 ?>
                                                 <li><a href="#" onclick="return popup('car/confirm_car.php?id=<?= $result2['car_id']; ?>&method=pay_car',popup,550,550);">

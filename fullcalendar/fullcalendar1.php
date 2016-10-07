@@ -5,6 +5,7 @@
     <title>ระบบข้อมูลบุคคลากรโรงพยาบาล</title>
 <LINK REL="SHORTCUT ICON" HREF="../images/logo.png">
     <link rel="stylesheet" href="js/fullcalendar-2.1.1/fullcalendar.min.css">
+    <link href="../option/css/bootstrap.css" rel="stylesheet">
     <script type="text/javascript">
             $(function() {
                 $('#calendar').fullCalendar({
@@ -35,7 +36,7 @@
         font-size:12px;
     }
 	#calendar{
-		max-width: 700px;
+		max-width: 82%;
 		margin: 0 auto;
         font-size:13px;
 	}        
@@ -57,8 +58,12 @@ $code_color=array("1"=>"#1e6c06","2"=>"#930606","3"=>"#416cbb","4"=>"purple","5"
 $i=1;
 while ($row = mysqli_fetch_array($li_conf)) {  ?>
 <a style="background-color:<?= $code_color[$i]?>; color: white"><?= $row['room_name']?></a> 
-<?php $i++; }?>
-</div>
+<?php $i++; }
+ echo "<br>";
+if(!empty($_GET['check'])=='1'){?>
+   <a href="#" class="btn btn-success btn-sm" onclick="javascript:window.parent.opener.document.location.href='../index.php?page=conferance/request_conf'; window.close();">ขอใช้ห้องประชุม</a> 
+<?php }
+?></div>
     
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    
 <script type="text/javascript" src="js/fullcalendar-2.1.1/lib/moment.min.js"></script>

@@ -14,22 +14,60 @@
                 <h3 class="panel-title"><font color='brown'>ตารางบันทึกการขอใช้ห้องประชุม</font></h3>
             </div>
             <div class="panel-body">
+                <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
+                        <div class="form-group"> 
+                            <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2559; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">ตกลง</button>
+                       <?php if (!empty($_REQUEST['year'])) {?>
+                        <button type="submit" class="btn btn-danger">เคลียร์</button>   
+                       <?php }?>
+                    </form>
                 <?php
 
                 include 'connection/connect.php';                
+                
+                if (!empty($_REQUEST['year'])) {
+                $year = $_POST['year'] - 543;
                 include 'option/function_date.php';
+                 $years = $year + 543;
+                    $sql_month = mysqli_query($db,"SELECT month_name FROM month where month_id='".$_REQUEST['month_id']."'");
+                    $month = mysqli_fetch_assoc( $sql_month );
+                    
+                    $this_year=$Y;
+                    $next_year=$y;
+                 }else{
+                    if($date >= $bdate and $date <= $edate){
+    include 'option/function_date.php';
+    $this_year=$y;
+    $next_year=$Yy;
+}  else {
+    $this_year=$Y;
+    $next_year=$y;
+                } }
     $q="select r.room_name, d.depName, ssc.start_date, ssc.end_date, ssc.start_time, ssc.end_time, ssc.amount, ssc.conf_id, ssc.conferance_no
             from ss_conferance ssc
             inner join ss_room r on r.room_id=ssc.room
             inner join emppersonal e on e.empno=ssc.empno_request
             inner join department d on d.depId=e.depid
-            WHERE ISNULL( approve )
+            WHERE ISNULL( approve ) and ssc.start_date between '$this_year-10-01' and '$next_year-09-30'
             order by ssc.conf_id";
         $qr = mysqli_query($db,$q);
                 ?>
 
                     <?php include_once ('option/funcDateThai.php'); ?>
                 <table align="center" width="100%" border="1">
+                    <?php  if (!empty($_REQUEST['year'])) {?>
+                    <tr align="center">
+                        <td colspan="14"><b>ปีงบประมาณ <?= $years?></b></td>
+                          </tr><?php }?>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>

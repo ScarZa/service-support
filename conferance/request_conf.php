@@ -46,7 +46,7 @@ function nextbox(e, id) {
         <form class="navbar-form" role="form" action='index.php?page=process/prcroom' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
     <div class="col-lg-2"></div>
-          <div class="col-lg-7">
+          <div class="col-lg-8">
               <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title"><img src='images/phonebook.ico' width='25'> <font color='brown'>เขียนขอใช้ห้องประชุม</font></h3>
@@ -76,7 +76,7 @@ function nextbox(e, id) {
                     </div>
                   <div class="form-group" > 
                         <label for="obj">วันที่ขอ &nbsp;</label>
-                        <input type="date" value="<?=$edit_person['record_date'];?>" NAME="record_date" id="record_date"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="" required>
+                        <input type="text" value="<?=$edit_person['record_date'];?>" NAME="record_date" id="datepicker"  placeholder='รูปแบบ 2016-01-31' class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="" required>
                     </div>
                   <p><?php } ?>
                     <div class="form-group" > 
@@ -85,27 +85,69 @@ function nextbox(e, id) {
                     </div><p>
                     <div class="form-group">
                     <label>ในวันที่ &nbsp;</label>
-                <?php include_once'option/DatePicker/index.php'; ?>
-                <?php
+                <?php /*
  		if($_GET[method]!=''){
  			$take_date=$edit_person[birthdate];
  			edit_date($take_date);
-                        }
+                        }*/
  		?>
-                    <input name="start_date" type="date" id="datepicker-th"  placeholder='รูปแบบ 20/09/2558' class="form-control"  value="<?= $edit_person['start_date']?>" required>
+                    <input name="start_date" type="text" id="datepicker2"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['start_date']?>" required>
                     </div>
                 <div class="form-group">
                     <label for="end_date">ถึงวันที่ &nbsp;</label>
-                    <input name="end_date" type="date" id="end_date"  placeholder='รูปแบบ 20/09/2558' class="form-control"  value="<?= $edit_person['end_date']?>" required>
+                    <input name="end_date" type="text" id="datepicker3"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['end_date']?>" required>
                 </div><p>
-                <div class="form-group">
-                    <label for="start_time">ตั้งแต่เวลา&nbsp;</label>
-                    <input name="start_time" type="time" id="start_time" size="1" class="form-control"  value="<?= $edit_person['start_time']?>" required>
-             	</div>
-                 <div class="form-group">
-                    <label for="end_time">ถึงเวลา &nbsp;</label>
-                    <input name="end_time" type="time" id="end_time"  size="1"  class="form-control"  value="<?= $edit_person['end_time']?>" required>
-             	</div>
+                <div class="row">  
+                <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
+                <div class="form-group sm"> 
+                <select name="take_hour_st" id="take_hour" class="form-control">
+                    <option value="">ชั่วโมง</option>
+                    <?php for($i=0;$i<=23;$i++){
+                        if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],0,2))){$selected='selected';}else{$selected='';}
+                        if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                </div>
+                    <div class="form-group">
+                <select name="take_minute_st" id="take_minute" class="form-control">
+                    <option value="">นาที</option>
+                    <?php for($i=0;$i<=59;$i++){
+                        if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],3,2))){$selected='selected';}else{$selected='';}
+                    if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                    </div></div>
+                <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
+                <div class="form-group"> 
+                <select name="take_hour_en" id="take_hour" class="form-control">
+                    <option value="">ชั่วโมง</option>
+                    <?php for($i=0;$i<=23;$i++){
+                        if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],0,2))){$selected='selected';}else{$selected='';}
+                        if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                </div>
+                    <div class="form-group"> 
+                <select name="take_minute_en" id="take_minute" class="form-control">
+                    <option value="">นาที</option>
+                    <?php for($i=0;$i<=59;$i++){
+                        if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],3,2))){$selected='selected';}else{$selected='';}
+                    if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                    </div></div></div><p> 
                     <div class="form-group">
                         <label for="amount">จำนวนผู้เข้าร่วมประชุม</label>
                         <input name="amount" id="amount" type="number" value="<?= $edit_person['amount']?>" required="" size="1" class="form-control" placeholder='จำนวนคน'>
@@ -123,15 +165,16 @@ function nextbox(e, id) {
                     <div class="form-group">
                         <input type="radio" name="equip" id="equip" value="N" <?= $check?>> 
                         ไม่ขอรับการสนับสนุนอุปกรณ์โสตฯ </div><br>
-                    <div class="form-group">
+                        <div class="form-group">
                                 <input type="radio" name="equip" id="equip" value="Y" <?= $checked?>> 
                     ขอรับการสนับสนุนอุปกรณ์โสตฯ </div>
                     </div>
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning row">
+                        
                         <div class="col-lg-6 col-xs-12">
                             <?php if($edit_person['equip']=='Y') {
                             $achecked='checked';}?>
-                          <div class="form-group col-xs-12">
+                          <div class="form-group">
                               <input type="checkbox" name="audio" value="Y" <?= $achecked?>> &nbsp;เครื่องเสียงในห้องประชุม
                           </div>
                           
@@ -142,36 +185,36 @@ function nextbox(e, id) {
                           }else{$mtchecked='';$mwchecked='';$mlchecked='';}
                             ?>
                           
-                            <div class="form-group col-xs-12">
+                            <div class="form-group">
                               <input type="checkbox" name="mic_table" value="Y" <?= $mtchecked?>> 
                             &nbsp;ไมค์ตั้งโต๊ะประชุม จำนวน <input type="text" name="mic_table" value="<?= $edit_person['mic_table']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
                             </div>
-                            <div class="form-group col-xs-12">
+                            <div class="form-group">
                               <input type="checkbox" name="mic_wireless" value="Y" <?= $mwchecked?>> 
                             &nbsp;ไมค์ลอย จำนวน <input type=textnumber" name="mic_wireless" value="<?= $edit_person['mic_wireless']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
                             </div>
-                            <div class="form-group col-xs-12">
+                            <div class="form-group">
                               <input type="checkbox" name="mic_line" value="Y" <?= $mlchecked?>> 
                             &nbsp;ไมค์สาย จำนวน <input type=textnumber" name="mic_line" value="<?= $edit_person['mic_line']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
                         </div></div>
                         <div class="col-lg-6 col-xs-12">
                             <?php if($edit_person['visualizer']=='Y') {
                             $vchecked='checked';}?>
-                        <div class="form-group col-xs-12">
+                        <div class="form-group">
                               <input type="checkbox" name="visualizer" value="Y" <?= $vchecked?>> 
                         &nbsp;เครื่องฉาบภาพ(visualizer)</div>
                         <?php if($edit_person['projector']=='Y') {
                             $pchecked='checked';}?>
-                        <div class="form-group col-xs-12">
+                        <div class="form-group">
                               <input type="checkbox" name="projector" value="Y" <?= $pchecked?>> 
                         &nbsp;เครื่องฉายโปรเจ็กเตอร์ พร้อมจอ</div>
                         <?php if($edit_person['comp']=='Y') {
                             $cchecked='checked';}?>
-                        <div class="form-group col-xs-12">
+                        <div class="form-group">
                               <input type="checkbox" name="comp" value="Y" <?= $cchecked?>> 
                         &nbsp;เครื่องคอมพิวเตอร์</div>
                         </div>
-                        <br><br><br><br><br>
+                       
                     </div>
                     <div class="form-group">
                         <label for="format">รูปแบบการจัโต๊ะห้องประชุม</label>

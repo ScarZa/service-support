@@ -46,7 +46,7 @@ function nextbox(e, id) {
         <form class="navbar-form" role="form" action='index.php?page=process/prccar' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
     <div class="col-lg-2"></div>
-          <div class="col-lg-7">
+          <div class="col-lg-8">
               <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title"><img src='images/phonebook.ico' width='25'> <font color='brown'>เขียนขอใช้รถยนต์</font></h3>
@@ -81,27 +81,69 @@ function nextbox(e, id) {
                         </div>
                     <div class="form-group">
                     <label>ในวันที่ &nbsp;</label>
-                <?php include_once'option/DatePicker/index.php'; ?>
                 <?php
- 		if($_GET[method]!=''){
+ 		/*if($_GET[method]!=''){
  			$take_date=$edit_person[birthdate];
  			edit_date($take_date);
-                        }
+                        }*/
  		?>
-                    <input name="start_date" type="date" id="datepicker-th"  placeholder='รูปแบบ 20/09/2558' class="form-control"  value="<?= $edit_person['start_date']?>" required>
+                    <input name="start_date" type="text" id="datepicker"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['start_date']?>" required>
                     </div>
                 <div class="form-group">
                     <label for="end_date">ถึงวันที่ &nbsp;</label>
-                    <input name="end_date" type="date" id="end_date"  placeholder='รูปแบบ 20/09/2558' class="form-control"  value="<?= $edit_person['end_date']?>" required>
+                    <input name="end_date" type="text" id="datepicker2"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['end_date']?>" required>
                 </div><p>
-                <div class="form-group">
-                    <label for="start_time">ตั้งแต่เวลา&nbsp;</label>
-                    <input name="start_time" type="time" id="start_time" size="1" class="form-control"  value="<?= $edit_person['start_time']?>" required>
-             	</div>
-                 <div class="form-group">
-                    <label for="end_time">ถึงเวลา &nbsp;</label>
-                    <input name="end_time" type="time" id="end_time"  size="1"  class="form-control"  value="<?= $edit_person['end_time']?>" required>
-                 </div><p>
+                <div class="row">  
+                <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
+                <div class="form-group sm"> 
+                <select name="take_hour_st" id="take_hour" class="form-control">
+                    <option value="">ชั่วโมง</option>
+                    <?php for($i=0;$i<=23;$i++){
+                        if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],0,2))){$selected='selected';}else{$selected='';}
+                        if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                </div>
+                    <div class="form-group">
+                <select name="take_minute_st" id="take_minute" class="form-control">
+                    <option value="">นาที</option>
+                    <?php for($i=0;$i<=59;$i++){
+                        if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],3,2))){$selected='selected';}else{$selected='';}
+                    if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                    </div></div>
+                <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
+                <div class="form-group"> 
+                <select name="take_hour_en" id="take_hour" class="form-control">
+                    <option value="">ชั่วโมง</option>
+                    <?php for($i=0;$i<=23;$i++){
+                        if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],0,2))){$selected='selected';}else{$selected='';}
+                        if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                </div>
+                    <div class="form-group"> 
+                <select name="take_minute_en" id="take_minute" class="form-control">
+                    <option value="">นาที</option>
+                    <?php for($i=0;$i<=59;$i++){
+                        if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],3,2))){$selected='selected';}else{$selected='';}
+                    if($i<10){
+                        echo "<option value='0".$i."' $selected>0".$i."</option>";    
+                        }else{
+                        echo "<option value='".$i."' $selected>".$i."</option>";}
+                    }?>
+                </select>
+                    </div></div></div><p> 
                      <div class="form-group">
                         <label for="amount_date">จำนวนวันที่ไป</label>
                         <input name="amount_date" id="amount_date" type="text" value="<?= $edit_person['amount_date']?>" size="1" onkeyup="javascript:inputDigits(this);" class="form-control" placeholder='จำนวนวัน'>

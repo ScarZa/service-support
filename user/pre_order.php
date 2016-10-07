@@ -14,11 +14,25 @@
                 <h3 class="panel-title"><font color='brown'>ตารางบันทึกสถานะการขอใช้ห้องประชุม/รถยนต์</font></h3>
             </div>
             <div class="panel-body table-responsive">
+                 <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
+                        <div class="form-group"> 
+                            <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2559; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">ตกลง</button>
+                       <?php if (!empty($_REQUEST['year'])) {?>
+                        <button type="submit" class="btn btn-danger">เคลียร์</button>   
+                       <?php }?>
+                    </form>
                 <?php
 
-                include 'connection/connect.php';                
-                include 'option/function_date.php';
-                
+                include 'connection/connect.php'; 
                 // สร้างฟังก์ชั่น สำหรับแสดงการแบ่งหน้า   
                 function page_navigator($before_p, $plus_p, $total, $total_p, $chk_page) {
                     global $e_page;
@@ -48,13 +62,22 @@
                     }
                 }
                 
-if($date >= $bdate and $date <= $edate){
- $this_year=$y;
+                
+                if (!empty($_REQUEST['year'])) {
+                $year = $_POST['year'] - 543;
+                include 'option/function_date.php';
+                
+                    $this_year=$Y;
+                    $next_year=$y;
+                 }else{
+                    if($date >= $bdate and $date <= $edate){
+    include 'option/function_date.php';
+    $this_year=$y;
     $next_year=$Yy;
 }  else {
     $this_year=$Y;
     $next_year=$y;
-} 
+                } }
 if($_SESSION['ss_status']=='USER'){ 
   $dep=$_SESSION['ss_dep'];  
   $code="e.depid='$dep' and";  
@@ -110,6 +133,7 @@ order by ssc.car_id desc";
                 $total_p2 = ceil($total2 / $e_page);
                 $before_p2 = ($chk_page * $e_page) + 1;
                 echo mysqli_error($db);
+                
                 ?>
                
                 <div class="table-responsive">
@@ -117,6 +141,10 @@ order by ssc.car_id desc";
                 <div align="center"><h4><b>สถานะการขอใช้ห้องประชุม</b></h4></div>
                     <table align="center" width="100%" class="table-responsive table-bordered table-hover">
                         <thead>
+                            <?php  if (!empty($_REQUEST['year'])) {?>
+                    <tr align="center">
+                        <td colspan="14"><b>ปีงบประมาณ <?= $_POST['year']?></b></td>
+                          </tr><?php }?>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>
@@ -178,6 +206,10 @@ order by ssc.car_id desc";
                 <div align="center"><h4><b>สถานะการขอใช้รถยนต์</b></h4></div>
                 <table align="center" width="100%" class="table-responsive table-bordered table-hover">
                     <thead>
+                        <?php  if (!empty($_REQUEST['year'])) {?>
+                    <tr align="center">
+                        <td colspan="14"><b>ปีงบประมาณ <?= $_POST['year']?></b></td>
+                          </tr><?php }?>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>

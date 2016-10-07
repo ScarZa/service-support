@@ -20,7 +20,12 @@
         <link rel="stylesheet" href="option/css/stylelist.css">
         <script src="option/js/jquery-2.1.4.min.js"></script>
         <script src="option/js/excellentexport.js"></script>
-
+        <!--Datepicker-->
+        <script src="option/jquery-ui-1.11.4.custom/jquery-1.12.3.js"></script>
+        <script src="option/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.js"></script>
+        <link rel="stylesheet" href="option/jquery-ui-1.11.4.custom/jquery-ui-1.11.4.custom.css" />
+        <link rel="stylesheet" href="option/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
+        <?php include 'option/jquery-ui-1.11.4.custom/DatepickerThai4.php';?>
         <!-- InstanceBeginEditable name="head" -->
         <script type="text/javascript">
                         function popup(url,name,windowWidth,windowHeight){    
@@ -149,7 +154,7 @@
                     $sql = mysqli_query($db,"select * from  hospital");
                     $resultHos = mysqli_fetch_assoc($sql);
                     ?>
-                    <a class="navbar-brand" href="./"><font color='#fedd00'><b>Service & Support System v.1 </b></font><!--ระบบบริหารความเสี่ยง <? echo $resultHos['name']; ?>--></a>
+                    <a class="navbar-brand" href="./"><font color='#fedd00'><b>Service & Support System v.1.1 </b></font><!--ระบบบริหารความเสี่ยง <? echo $resultHos['name']; ?>--></a>
                 </div>
                 <?php
                 if ($_SESSION['ssuser_id'] != '') {
@@ -164,14 +169,19 @@
                     <ul class="nav  navbar-custom navbar-nav side-nav">
                         <li><a href="./"><img src='images/gohome.ico' width='25'> หน้าหลัก</a></li> 		
                         <li><a href="#" onClick="return popup('fullcalendar/fullcalendar1.php', popup, 820, 670);" title="ดูการใช้ห้องประชุม"><img src='images/calendar-clock.ico' width='25'> ปฏิทินการใช้ห้องประชุม</a></li>
-                        <li><a href="#" onClick="return popup('fullcalendar/fullcalendar2.php', popup, 820, 670);" title="ดูการใช้ห้องประชุม"><img src='images/schedule.ico' width='25'> ปฏิทินการใช้รถยนต์</a></li>
+                        <li><a href="#" onClick="return popup('fullcalendar/fullcalendar2.php', popup, 820, 670);" title="ดูการใช้รถยนต์"><img src='images/schedule.ico' width='25'> ปฏิทินการใช้รถยนต์</a></li>
                         <?php if($_SESSION['ss_status'] != ''){?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src='images/Notepad.ico' width='25'> ขอใช้บริการ/สนับสนุน <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="index.php?page=conferance/request_conf"><img src='images/meeting.png' width='25'> เขียนขอห้องประชุม</a></li>
-                                        <li><a href="index.php?page=car/request_car"><img src='images/Vroum Vroum.ico' width='25'> เขียนขอรถยนต์</a></li>
-                        <li><a href="index.php?page=user/pre_order"><img src='images/analysis.ico' width='25'> ตรวจสอบสถานะ</a></li>
+                                    <?php if($_SESSION['ss_status']=='ADMIN' or $_SESSION['ss_status']=='SUSER'){ ?>    
+                                        <li><a href="index.php?page=conferance/request_conf" title="ดูการใช้ห้องประชุม"><img src='images/meeting.png' width='25'> เขียนขอห้องประชุม</a></li>
+                                        <li><a href="index.php?page=car/request_car" title="ดูการใช้รถยนต์"><img src='images/Vroum Vroum.ico' width='25'> เขียนขอรถยนต์</a></li>
+                                    <?php }else {?>
+                                        <li><a href="#" onClick="return popup('fullcalendar/fullcalendar1.php?check=1', popup, 820, 670);" title="ดูการใช้ห้องประชุม"><img src='images/meeting.png' width='25'> เขียนขอห้องประชุม</a></li>
+                                        <li><a href="#" onClick="return popup('fullcalendar/fullcalendar2.php?check=1', popup, 820, 670);" title="ดูการใช้รถยนต์"><img src='images/Vroum Vroum.ico' width='25'> เขียนขอรถยนต์</a></li>
+                                        <?php }?>
+                                        <li><a href="index.php?page=user/pre_order"><img src='images/analysis.ico' width='25'> ตรวจสอบสถานะ</a></li>                                   
                                     </ul>
                         </li>
                         <?php }?>

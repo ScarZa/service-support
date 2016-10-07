@@ -1,3 +1,4 @@
+<?php  include 'connection/connect.php'; ?>
 <div class="row">
     <div class="col-lg-12">
         <h1><font color='blue'>  บันทึกการอนุมัติใช้ห้องประชุม </font></h1> 
@@ -14,12 +15,34 @@
                 <h3 class="panel-title"><font color='brown'>ตารางบันทึกการอนุมัติใช้ห้องประชุม</font></h3>
             </div>
             <div class="panel-body">
+                <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
+                    <div class="form-group">
+                <select name="month_id" id="month"  class="form-control"> 
+				<?php	$sql = mysqli_query($db,"SELECT month_id, month_name FROM month order by m_id");
+				 echo "<option value=''>--เลือกเดือน--</option>";
+				 while( $result = mysqli_fetch_assoc( $sql ) ){
+  				 echo "<option value='".$result['month_id']."' $selected>".$result['month_name']." </option>";
+				 } ?>
+			 </select>
+            </div> 
+                        <div class="form-group"> 
+                            <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2559; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">ตกลง</button>
+                       <?php if (!empty($_REQUEST['year'])) {?>
+                        <button type="submit" class="btn btn-danger">เคลียร์</button>   
+                       <?php }?>
+                    </form>
                 <?php
 
-                include 'connection/connect.php';                
-                include 'option/function_date.php';
-                
-                // สร้างฟังก์ชั่น สำหรับแสดงการแบ่งหน้า   
+                 // สร้างฟังก์ชั่น สำหรับแสดงการแบ่งหน้า   
 function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){   
 	global $e_page;
 	global $querystr;
@@ -47,19 +70,89 @@ function page_navigator($before_p,$plus_p,$total,$total_p,$chk_page){
 	}
 }  
                 
-if($date >= $bdate and $date <= $edate){
+if (!empty($_REQUEST['year'])) {
+                $year = $_POST['year'] - 543;}
+                include 'option/function_date.php';
+               if (!empty($_POST['year']) or !empty($_GET['year'])) {
+                    $year = $_REQUEST['year'] - 543;
+                    $years = $year + 543;
+                    $sql_month = mysqli_query($db,"SELECT month_name FROM month where month_id='".$_REQUEST['month_id']."'");
+                    $month = mysqli_fetch_assoc( $sql_month );
+                    
+                    if($date >= $bdate and $date <= $edate){
+                $take_month=$_POST['month_id'];                      
+               
+                             if($take_month=='1' or $take_month=='2' or $take_month=='3' or $take_month=='4' or $take_month=='5' or $take_month=='6' or $take_month=='7' or $take_month=='8' or $take_month=='9'){
+                            $take_month1="$y-$take_month-01";
+                             if($take_month=='4' or $take_month=='6' or $take_month=='9'){
+                            $take_month2="$y-$take_month-30";  
+                             }elseif ($take_month=='2') {
+                            $take_month2="$y-$take_month-29"; 
+                            }else{
+                             $take_month2="$y-$take_month-31";
+                            }
+                             $take_date1="$Y-10-01";
+                             $take_date2="$y-09-30"; 
+                }elseif($take_month=='10' or $take_month=='11' or $take_month=='12') {
+                    $take_month1="$Y-$take_month-01";
+                    if($take_month=='11'){
+                        $take_month2="$Y-$take_month-30"; 
+                    }else{
+                        $take_month2="$Y-$take_month-31";
+                            }
+                            $take_date1="$Y-10-01";
+                            $take_date2="$y-09-30";
+                }
+    }  else {
+                $take_month=$_REQUEST['month_id'];
+                
+                if($take_month=='1' or $take_month=='2' or $take_month=='3' or $take_month=='4' or $take_month=='5' or $take_month=='6' or $take_month=='7' or $take_month=='8' or $take_month=='9'){
+                 $this_year=$y;
+                 $ago_year=$Y;
+                  $take_month1="$this_year-$take_month-01";
+                   if($take_month=='4' or $take_month=='6' or $take_month=='9'){
+                               $take_month2="$this_year-$take_month-30";  
+                             }elseif ($take_month=='2') {
+                               $take_month2="$this_year-$take_month-29"; 
+                            }else{
+                             $take_month2="$this_year-$take_month-31";
+                            }
+                             $take_date1="$ago_year-10-01";
+                             $take_date2="$this_year-09-30";
+                }  elseif($take_month=='10' or $take_month=='11' or $take_month=='12') {
+                 $this_year=$y;
+                 $ago_year=$Y;
+                 $next_year=$Yy;
+                  $take_month1="$ago_year-$take_month-01";
+                   if($take_month=='11'){
+                               $take_month2="$ago_year-$take_month-30";  
+                             }else{
+                             $take_month2="$ago_year-$take_month-31";
+                            }
+                             $take_date1="$ago_year-10-01";
+                             $take_date2="$this_year-09-30";
+                }  else {
+                 $this_year=$y;
+                 $ago_year=$Y;   
+                }
+                                }  
+                $code_where="'$take_month1' and '$take_month2'";                
+                }else{
+                                    if($date >= $bdate and $date <= $edate){
     $this_year=$y;
     $next_year=$Yy;
 }  else {
     $this_year=$Y;
     $next_year=$y;
+                                }
+             $code_where="'$this_year-10-01' and '$next_year-09-30'";                   
 }
     $q="select r.room_name, d.depName, ssc.start_date, ssc.end_date, ssc.start_time, ssc.end_time, ssc.amount, ssc.conf_id, ssc.conferance_no
             from ss_conferance ssc
             inner join ss_room r on r.room_id=ssc.room
             inner join emppersonal e on e.empno=ssc.empno_request
             inner join department d on d.depId=e.depid
-            WHERE approve='Y' and start_date between '$this_year-10-01' and '$next_year-09-30'
+            WHERE approve='Y' and start_date between $code_where
             order by ssc.conf_id desc";
     $qr=mysqli_query($db,$q);
 if($qr==''){exit();}
@@ -89,6 +182,10 @@ echo mysqli_error($db);
                     <?php include_once ('option/funcDateThai.php'); ?>
                     <table align="center" width="100%" class="table-responsive table-bordered table-hover">
                         <thead>
+                            <?php  if (!empty($_REQUEST['year'])) {?>
+                    <tr align="center">
+                        <td colspan="14"><b>ปีงบประมาณ <?= $years?>  ประจำเดือน <?= $month['month_name']?></b></td>
+                          </tr><?php }?>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>

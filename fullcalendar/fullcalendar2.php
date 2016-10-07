@@ -6,6 +6,7 @@
     <title>ระบบข้อมูลบุคคลากรโรงพยาบาล</title>
 <LINK REL="SHORTCUT ICON" HREF="../images/logo.png">
     <link rel="stylesheet" href="js/fullcalendar-2.1.1/fullcalendar.min.css">
+    <link href="../option/css/bootstrap.css" rel="stylesheet">
     <script type="text/javascript">
             $(function() {
                 $('#calendar').fullCalendar({
@@ -36,7 +37,7 @@
         font-size:12px;
     }
 	#calendar{
-		max-width: 700px;
+		max-width: 82%;
 		margin: 0 auto;
         font-size:13px;
 	}        
@@ -57,7 +58,12 @@ $code_color=array("1"=>"#416cbb","2"=>"#6a6a6a","3"=>"#68bd60","4"=>"#977dd1","5
 $i=1;
 while ($row = mysqli_fetch_array($li_car)) {  ?>
 <a style="background-color:<?= $code_color[$i]?>; color: white"><?= $row['license_name']?></a> 
-<?php $i++; }?>
+<?php $i++; }
+ echo "<br>";
+if(!empty($_GET['check'])=='1'){?>
+   <a href="#" class="btn btn-primary btn-sm" onclick="javascript:window.parent.opener.document.location.href='../index.php?page=car/request_car'; window.close();">ขอใช้รถยนต์</a> 
+<?php }
+?>
 </div>
     
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>    

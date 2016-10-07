@@ -51,8 +51,8 @@ echo "<div class='alert alert-dismissable alert-success'>
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $request_date=date('Y-m-d');
-    $start_time = $_POST['start_time'];
-    $end_time = $_POST['end_time'];
+    $start_time = $_POST['take_hour_st'].":".$_POST['take_minute_st'];
+    $end_time = $_POST['take_hour_en'].":".$_POST['take_minute_en'];
     $amount_date = $_POST['amount_date'];
     $obj = $_POST['obj'];
     $amount = $_POST['amount'];
@@ -186,12 +186,24 @@ $car_no="$Y/$Ln";
     $confirm_date=  date("Y-m-d");
     $reason=$_POST['reason'];
     $approve=$_POST['confirm'];
+    $car_type=$_POST['car_type'];
+    $license_plate=$_POST['license_plate'];
+    $rider=$_POST['rider'];
     
-    $confirm_car=  mysqli_query($db, "update ss_car set approve='$approve', approver='".$_SESSION['ss_id']."', approve_date='$confirm_date', reason='$reason' where car_id='$car_id' ");
-if($approve=='N'){
+    
+    $confirm_car=  mysqli_query($db, "update ss_car set license_plate='$license_plate', car_type='$car_type', rider='$rider' , approve='$approve', approver='".$_SESSION['ss_id']."', approve_date='$confirm_date', reason='$reason' where car_id='$car_id' ");
+    $select_rider=  mysqli_query($db,"SELECT ssc . * , CONCAT( e1.firstname,  ' ', e1.lastname ) AS fullname from ss_car ssc 
+        INNER JOIN emppersonal e1 ON e1.empno = ssc.rider where ssc.rider='$rider'");
+    $rider_name= mysqli_fetch_assoc($select_rider);
+    
+    $passenger=$_POST['passenger']." ขับโดย ".$rider_name['fullname'];
+    $update_event=mysqli_query($db,"update tbl_event set event_title='$passenger'
+            where workid='$car_id' and process='3'");
+    
+    if($approve=='N'){
     $delete_car=  mysqli_query($db,"delete from tbl_event where workid='$car_id' and process='3'");
 }
-    if ($confirm_car == false) {
+    if ($confirm_car and $update_event == false) {
         echo "<p>";
         echo "Process not complete" . mysqli_error($db);
         echo "<br />";

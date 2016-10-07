@@ -1,3 +1,4 @@
+<?php  include 'connection/connect.php'; ?>
 <div class="row">
     <div class="col-lg-12">
         <h1><font color='blue'>  บันทึกการขอใช้รถยนต์ </font></h1> 
@@ -14,10 +15,24 @@
                 <h3 class="panel-title"><font color='brown'>ตารางบันทึกการขอใช้รถยนต์</font></h3>
             </div>
             <div class="panel-body">
+            <form method="post" action="" enctype="multipart/form-data" class="navbar-form navbar-right">
+                        <div class="form-group"> 
+                            <select name='year'  class="form-control">
+                                <option value=''>กรุณาเลือกปีงบประมาณ</option>
+                                <?php
+                                for ($i = 2559; $i <= 2565; $i++) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">ตกลง</button>
+                       <?php if (!empty($_REQUEST['year'])) {?>
+                        <button type="submit" class="btn btn-danger">เคลียร์</button>   
+                       <?php }?>
+                    </form>
                 <?php
-
-                include 'connection/connect.php';                
-                include 'option/function_date.php';
+                include 'connection/connect.php';                              
                 
                 if(!empty($_REQUEST['method'])){
                     if($_REQUEST['method']=='del'){
@@ -28,15 +43,26 @@
                         mysqli_query($db,$sql_del_event);
                     }
                 }
-                
-if($date >= $bdate and $date <= $edate){
+                   
+                   if (!empty($_REQUEST['year'])) {
+                $year = $_POST['year'] - 543;
+                include 'option/function_date.php';
+                 $years = $year + 543;
+                    $sql_month = mysqli_query($db,"SELECT month_name FROM month where month_id='".$_REQUEST['month_id']."'");
+                    $month = mysqli_fetch_assoc( $sql_month );
+                    
+                    $this_year=$Y;
+                    $next_year=$y;
+                 }else{
+                    if($date >= $bdate and $date <= $edate){
+    include 'option/function_date.php';
     $this_year=$y;
     $next_year=$Yy;
 }  else {
     $this_year=$Y;
     $next_year=$y;
-}
-    $q="SELECT ssc . * , CONCAT( p1.pname, e1.firstname,  ' ', e1.lastname ) AS fullname, d1.depName AS dep, e1.empno AS empno,
+                } }
+     $q="SELECT ssc . * , CONCAT( p1.pname, e1.firstname,  ' ', e1.lastname ) AS fullname, d1.depName AS dep, e1.empno AS empno,
                                  am.AMPHUR_NAME as amphur, pv.PROVINCE_NAME as province, ssc.passenger
 FROM ss_car ssc
 INNER JOIN emppersonal e1 ON e1.empno = ssc.empno_request
@@ -49,6 +75,10 @@ WHERE isnull(ssc.approve) and (isnull(ssc.pay) or ssc.pay='Y') and ssc.start_dat
                 
                  include_once ('option/funcDateThai.php'); ?>
                 <table align="center" width="100%" border="1">
+                    <?php  if (!empty($_REQUEST['year'])) {?>
+                    <tr align="center">
+                        <td colspan="14"><b>ปีงบประมาณ <?= $years?></b></td>
+                          </tr><?php }?>
                     <tr align="center" bgcolor="#898888">
                         <td width="3%" align="center"><b>ลำดับ</b></td>
                         <td width="8%" align="center"><b>เลขใบคำขอ</b></td>

@@ -144,15 +144,37 @@ WHERE ssc.car_id ='$car_id'");
                   if($detial_l['pay']=='Y'){?>
               <tr>
                 <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
-                <td colspan="3">&nbsp;&nbsp; <?=$detial_l['cartype_name'];?></td>
+                <td colspan="3"><select name="car_type" id="car_type"  class="form-control"> 
+				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
+				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
+				 while( $result = mysqli_fetch_assoc( $sql ) ){
+          if($result['cartype_id']==$detial_l['car_type']){$selected='selected';}else{$selected='';}
+				 echo "<option value='".$result['cartype_id']."' $selected>".$result['cartype_name'] ."</option>";
+				 } ?>
+			 </select></td>
               </tr>
               <tr>
                 <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3">&nbsp;&nbsp; <?=$detial_l['license_name'];?></td>
+                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control"> 
+				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
+				 echo "<option value=''>--เลือกรถยนต์--</option>";
+				 while( $result = mysqli_fetch_assoc( $sql ) ){
+          if($result['license_id']==$detial_l['license_plate']){$selected='selected';}else{$selected='';}
+				 echo "<option value='".$result['license_id']."' $selected>".$result['license_name'] ."</option>";
+				 } ?>
+			 </select></td>
               </tr>
               <tr>
                 <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
-                <td colspan="3">&nbsp;&nbsp; <?=$detial_l['rider_name'];?></td>
+                <td colspan="3"><select name="rider" id="rider"  class="form-control"> 
+				<?php	$sql = mysqli_query($db,"SELECT concat(firstname,' ',lastname) as fullname, empno  FROM emppersonal 
+                                            where depid='23' order by empno");
+				 echo "<option value=''>--เลือกผู้ขับ--</option>";
+				 while( $result = mysqli_fetch_assoc( $sql ) ){
+          if($result['empno']==$detial_l['rider']){$selected='selected';}else{$selected='';}
+				 echo "<option value='".$result['empno']."' $selected>".$result['fullname'] ."</option>";
+				 } ?>
+			 </select></td>
               </tr>
                   <?php } ?>
               <tr>
@@ -240,7 +262,8 @@ WHERE ssc.car_id ='$car_id'");
                         <input type="hidden" name="method" value="pay_car">
                         <input class="btn btn-success" type="submit" name="submit" value="ยืนยันสั่งจ่ายรถ">
                         <?php }elseif($_REQUEST['method']=='confirm_car'){?> 
-                     <input type="hidden" name="method" value="confirm_car">
+                    <input type="hidden" name="passenger" value="<?=$detial_l['pass_name'];?>">
+                    <input type="hidden" name="method" value="confirm_car">
                     <input class="btn btn-success" type="submit" name="submit" value="ยืนยันกระบวนการ">
                         <?php }elseif($_REQUEST['method']=='cancle_car'){?>
                     <input type="hidden" name="method" value="cancle_car">    

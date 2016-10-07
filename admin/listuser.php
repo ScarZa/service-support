@@ -92,7 +92,7 @@ echo mysqli_error($db);
  </head>
 <body>
   
-
+    <div class="table table-responsive">
 <table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" class="divider" rules="rows" frame="below">  
  <TR bgcolor='#898888'>
 					<th width='5%'><CENTER><p>ลำดับ</p></CENTER></th>
@@ -148,7 +148,7 @@ while($result=mysqli_fetch_assoc($qr)){
  		 
 </CENTER>
 </table>
-
+    </div>
 <?php if($total>0){
 echo mysqli_error($db);
 
