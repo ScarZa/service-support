@@ -100,7 +100,7 @@ function nextbox(e, id) {
                 <div class="row">  
                 <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
                 <div class="form-group sm"> 
-                <select name="take_hour_st" id="take_hour" class="form-control">
+                <select name="take_hour_st" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
                     <?php for($i=0;$i<=23;$i++){
                         if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],0,2))){$selected='selected';}else{$selected='';}
@@ -112,7 +112,7 @@ function nextbox(e, id) {
                 </select>
                 </div>
                     <div class="form-group">
-                <select name="take_minute_st" id="take_minute" class="form-control">
+                <select name="take_minute_st" id="take_minute" class="form-control" required>
                     <option value="">นาที</option>
                     <?php for($i=0;$i<=59;$i++){
                         if((!empty($edit_person['start_time']))and($i== substr($edit_person['start_time'],3,2))){$selected='selected';}else{$selected='';}
@@ -125,7 +125,7 @@ function nextbox(e, id) {
                     </div></div>
                 <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
                 <div class="form-group"> 
-                <select name="take_hour_en" id="take_hour" class="form-control">
+                <select name="take_hour_en" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
                     <?php for($i=0;$i<=23;$i++){
                         if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],0,2))){$selected='selected';}else{$selected='';}
@@ -137,7 +137,7 @@ function nextbox(e, id) {
                 </select>
                 </div>
                     <div class="form-group"> 
-                <select name="take_minute_en" id="take_minute" class="form-control">
+                <select name="take_minute_en" id="take_minute" class="form-control" required>
                     <option value="">นาที</option>
                     <?php for($i=0;$i<=59;$i++){
                         if((!empty($edit_person['end_time']))and($i== substr($edit_person['end_time'],3,2))){$selected='selected';}else{$selected='';}

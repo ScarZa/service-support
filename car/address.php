@@ -32,7 +32,7 @@ function Check_txt(){
 </script>
     <div class="form-group"> 
                     <label>จังหวัด &nbsp;</label>
-	<select class="form-control" name='province' id='province' onchange="data_show(this.value,'amphur');">
+	<select class="form-control" name='province' id='province' required onchange="data_show(this.value,'amphur');">
 		<option value="">---โปรดเลือกจังหวัด---</option>
 		<?php
 		$rstTemp=mysqli_query($db,"select * from province Order By PROVINCE_NAME ASC");
@@ -45,7 +45,7 @@ function Check_txt(){
     </div>
         <div class="form-group">
         <label>อำเภอ &nbsp;</label>
-	<select class="form-control" name='amphur' id='amphur'onchange="data_show(this.value,'district');">
+	<select class="form-control" name='amphur' id='amphur' required onchange="data_show(this.value,'district');">
             <?php if($_REQUEST['method']=='edit'){
                 $rstTemp = mysqli_query($db,"select * from amphur where AMPHUR_ID='".$edit_person['amphur']."'");
                 while ($arr_2 = mysqli_fetch_array($rstTemp)){
