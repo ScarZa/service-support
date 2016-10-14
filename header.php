@@ -27,6 +27,14 @@
         <link rel="stylesheet" href="option/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
         <?php include 'option/jquery-ui-1.11.4.custom/DatepickerThai4.php';?>
         <!-- InstanceBeginEditable name="head" -->
+        <style type="text/css">
+html{
+-moz-filter:grayscale(100%);
+-webkit-filter:grayscale(100%);
+filter:gray;
+filter:grayscale(100%);
+}
+</style>
         <script type="text/javascript">
                         function popup(url,name,windowWidth,windowHeight){    
                                         myleft=(screen.width)?(screen.width-windowWidth)/2:100;	
