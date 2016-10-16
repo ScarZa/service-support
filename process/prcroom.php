@@ -73,7 +73,27 @@ echo "<div class='alert alert-dismissable alert-success'>
         $empno = $_SESSION['ss_id'];
         }else{
         $empno = $_POST['empno'];    
-        }    
+        }  
+        $sql = "SELECT * FROM ss_conferance WHERE room = '".$room."'
+AND start_date = '".$start_date."'
+AND (
+
+   (start_time BETWEEN '".$start_time."' AND '".$end_time."')
+   OR 
+   (end_time BETWEEN '".$$start_time."' AND '".$end_time."')
+   OR 
+    ('".$start_time."' BETWEEN start_time  AND end_time)
+   OR 
+    ('".$end_time."' BETWEEN  start_time  AND end_time )
+)";
+        $qry = mysqli_query($db,$sql) or die(mysqli_error($db));
+if($row = mysqli_fetch_array($qry))
+{
+echo "ห้องนี้มีผู้ใช้งาน ช่วงเวลา ". $row['start_time'] ." - ". $row['end_time'] ." กรุณาตรวจสอบอีกครั้ง!";
+ echo "	<br><span class='fa fa-remove'></span>";
+        echo "<a href='index.php?page=conferance/request_conf' >กลับ</a>";
+}else{
+        
         $regis_conferance=  mysqli_query($db,"select count from count where count_name='regis_conferance'");
 $Regis_conferance=  mysqli_fetch_assoc($regis_conferance);
 $Ln=$Regis_conferance['count']+1;
@@ -96,7 +116,7 @@ $conferance_no="$Y/$Ln";
         echo "<a href='index.php?page=conferance/request_conf' >กลับ</a>";
     } else {
                     echo" <META HTTP-EQUIV='Refresh' CONTENT='2;URL=index.php'>";
-    }
+}}
 }else if ($_POST['method'] == 'edit_room') {
     $conf_id=$_REQUEST['edit_id'];
     $edit = mysqli_query($db,"update ss_conferance set obj='$obj', start_date='$start_date', end_date='$end_date',
