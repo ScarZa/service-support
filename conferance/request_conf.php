@@ -45,8 +45,8 @@ function nextbox(e, id) {
     <section class="content">
         <form class="navbar-form" role="form" action='index.php?page=process/prcroom' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
-    <div class="col-lg-2"></div>
-          <div class="col-lg-8">
+    <div class="col-lg-1"></div>
+          <div class="col-lg-10">
               <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title"><img src='images/phonebook.ico' width='25'> <font color='brown'>เขียนขอใช้ห้องประชุม</font></h3>
@@ -98,7 +98,7 @@ function nextbox(e, id) {
                     <input name="end_date" type="text" id="datepicker3"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['end_date']?>" required>
                 </div><p>
                 <div class="row">  
-                <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
+                <div class="form-group col-lg-4 col-md-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
                 <div class="form-group sm"> 
                 <select name="take_hour_st" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
@@ -122,8 +122,8 @@ function nextbox(e, id) {
                         echo "<option value='".$i."' $selected>".$i."</option>";}
                     }?>
                 </select>
-                    </div></div>
-                <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
+                    </div></div><div class="col-lg-8 col-md-5 col-xs-12"></div>
+                <div class="form-group col-lg-4 col-md-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
                 <div class="form-group"> 
                 <select name="take_hour_en" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
@@ -152,8 +152,7 @@ function nextbox(e, id) {
                         <label for="amount">จำนวนผู้เข้าร่วมประชุม</label>
                         <input name="amount" id="amount" type="number" value="<?= $edit_person['amount']?>" required="" size="1" class="form-control" placeholder='จำนวนคน'>
                     </div>
-                    <br><p>
-                    
+                    <p>
                     <?php if($edit_person['equip']=='Y') {
                         $checked='checked';
                         $check='';
@@ -164,19 +163,19 @@ function nextbox(e, id) {
                         <b>ในการนี้ข้าพเจ้า</b><br>
                     <div class="form-group">
                         <input type="radio" name="equip" id="equip" value="N" <?= $check?>> 
-                        ไม่ขอรับการสนับสนุนอุปกรณ์โสตฯ </div><br>
+                        ไม่ขอรับการสนับสนุนอุปกรณ์โสตฯ </div><p>
                         <div class="form-group">
                                 <input type="radio" name="equip" id="equip" value="Y" <?= $checked?>> 
                     ขอรับการสนับสนุนอุปกรณ์โสตฯ </div>
                     </div>
                     <div class="alert alert-warning row">
                         
-                        <div class="col-lg-6 col-xs-12">
+                        <div class="col-lg-4 col-xs-12">
                             <?php if($edit_person['equip']=='Y') {
                             $achecked='checked';}?>
                           <div class="form-group">
                               <input type="checkbox" name="audio" value="Y" <?= $achecked?>> &nbsp;เครื่องเสียงในห้องประชุม
-                          </div>
+                          </div><p>
                           
                           <?php if($edit_person){
                             if($edit_person['mic_table']!='0') {$mtchecked='checked';}
@@ -188,26 +187,26 @@ function nextbox(e, id) {
                             <div class="form-group">
                               <input type="checkbox" name="mic_table" value="Y" <?= $mtchecked?>> 
                             &nbsp;ไมค์ตั้งโต๊ะประชุม จำนวน <input type="text" name="mic_table" value="<?= $edit_person['mic_table']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
-                            </div>
+                            </div><p>
                             <div class="form-group">
                               <input type="checkbox" name="mic_wireless" value="Y" <?= $mwchecked?>> 
                             &nbsp;ไมค์ลอย จำนวน <input type=textnumber" name="mic_wireless" value="<?= $edit_person['mic_wireless']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
-                            </div>
+                            </div><p>
                             <div class="form-group">
                               <input type="checkbox" name="mic_line" value="Y" <?= $mlchecked?>> 
                             &nbsp;ไมค์สาย จำนวน <input type=textnumber" name="mic_line" value="<?= $edit_person['mic_line']?>" size="1" onKeyUp="javascript:inputDigits(this);"> ตัว<br>
                         </div></div>
-                        <div class="col-lg-6 col-xs-12">
+                        <div class="col-lg-4 col-xs-12">
                             <?php if($edit_person['visualizer']=='Y') {
                             $vchecked='checked';}?>
                         <div class="form-group">
                               <input type="checkbox" name="visualizer" value="Y" <?= $vchecked?>> 
-                        &nbsp;เครื่องฉาบภาพ(visualizer)</div>
+                        &nbsp;เครื่องฉาบภาพ(visualizer)</div><p>
                         <?php if($edit_person['projector']=='Y') {
                             $pchecked='checked';}?>
                         <div class="form-group">
                               <input type="checkbox" name="projector" value="Y" <?= $pchecked?>> 
-                        &nbsp;เครื่องฉายโปรเจ็กเตอร์ พร้อมจอ</div>
+                        &nbsp;เครื่องฉายโปรเจ็กเตอร์ พร้อมจอ</div><p>
                         <?php if($edit_person['comp']=='Y') {
                             $cchecked='checked';}?>
                         <div class="form-group">

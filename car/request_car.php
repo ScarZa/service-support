@@ -45,8 +45,8 @@ function nextbox(e, id) {
     <section class="content">
         <form class="navbar-form" role="form" action='index.php?page=process/prccar' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
 <div class="row">
-    <div class="col-lg-2"></div>
-          <div class="col-lg-8">
+        <div class="col-lg-1"></div>
+          <div class="col-lg-10">
               <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title"><img src='images/phonebook.ico' width='25'> <font color='brown'>เขียนขอใช้รถยนต์</font></h3>
@@ -78,7 +78,7 @@ function nextbox(e, id) {
                     </div><p>
                         <div class="form-group" > 
                             <?php include 'car/address.php';?>
-                        </div>
+                        </div><p>
                     <div class="form-group">
                     <label>ในวันที่ &nbsp;</label>
                 <?php
@@ -94,7 +94,7 @@ function nextbox(e, id) {
                     <input name="end_date" type="text" id="datepicker2"  placeholder='รูปแบบ 2016-01-31' class="form-control"  value="<?= $edit_person['end_date']?>" required>
                 </div><p>
                 <div class="row">  
-                <div class="form-group col-lg-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
+                <div class="form-group col-lg-4 col-md-5 col-xs-12">  <label for="take_hour_st">ตั้งแต่&nbsp;</label>  
                 <div class="form-group sm"> 
                 <select name="take_hour_st" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
@@ -118,8 +118,8 @@ function nextbox(e, id) {
                         echo "<option value='".$i."' $selected>".$i."</option>";}
                     }?>
                 </select>
-                    </div></div>
-                <div class="form-group col-lg-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
+                    </div></div><div class="col-lg-8 col-md-5 col-xs-12"></div>
+                <div class="form-group col-lg-4 col-md-5 col-xs-12"> <label for="take_hour_st">ถึงเวลา </label>   
                 <div class="form-group"> 
                 <select name="take_hour_en" id="take_hour" class="form-control" required>
                     <option value="">ชั่วโมง</option>
@@ -149,7 +149,7 @@ function nextbox(e, id) {
                         <input name="amount_date" id="amount_date" type="text" value="<?= $edit_person['amount_date']?>" size="1" onkeyup="javascript:inputDigits(this);" class="form-control" placeholder='จำนวนวัน'>
                         <font color="red"><b>** หากไม่ถึงครึ่งวัน ไม่ต้องใส่</b></font>
                      </div>
-                    <br><p>
+                    <p>
                 <div class="form-group" > 
                         <label for="obj">เพื่อ &nbsp;</label>
                         <input value="<?=$edit_person['obj'];?>" NAME="obj" id="obj"  class="form-control" onkeydown="return nextbox(event, 'start_date')" placeholder="วัตถุประสงค์" size="80" required>
@@ -158,7 +158,7 @@ function nextbox(e, id) {
                         <label for="amount">จำนวนผู้ร่วมทาง</label>
                         <input name="amount" id="amount" type="number" value="<?= $edit_person['amount']?>" required="" size="1" class="form-control" placeholder='จำนวนคน'>
                     </div>
-                    <br><p>
+                    <p>
                     <div class="form-group">
                         <label for="passenger">เพื่อให้</label>
                         <select name="passenger" id="passenger" required  class="form-control" onkeydown="return nextbox(event, 'dep');"> 
@@ -181,7 +181,7 @@ function nextbox(e, id) {
                         <b>การใช้รถครั้งนี้ขอให้พนักงานขับรถ</b><br>
                     <div class="form-group">
                         <input type="radio" name="wait" id="wait" value="N" <?= $check?>> 
-                        ไม่รอรับ </div><br>
+                        ไม่รอรับ </div><p>
                     <div class="form-group">
                                 <input type="radio" name="wait" id="wait" value="Y" <?= $checked?>> 
                     รอรับ </div>

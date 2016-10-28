@@ -75,7 +75,7 @@ echo "<div class='alert alert-dismissable alert-success'>
         $empno = $_POST['empno'];    
         }  
         $sql = "SELECT * FROM ss_conferance WHERE room = '".$room."'
-AND start_date = '".$start_date."'
+AND ('".$start_date."' between start_date and end_date)
 AND (
 
    (start_time BETWEEN '".$start_time."' AND '".$end_time."')
@@ -85,7 +85,7 @@ AND (
     ('".$start_time."' BETWEEN start_time  AND end_time)
    OR 
     ('".$end_time."' BETWEEN  start_time  AND end_time )
-)";
+) and approve='Y'";
         $qry = mysqli_query($db,$sql) or die(mysqli_error($db));
 if($row = mysqli_fetch_array($qry))
 {
