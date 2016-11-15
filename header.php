@@ -27,13 +27,22 @@
         <link rel="stylesheet" href="option/jquery-ui-1.11.4.custom/SpecialDateSheet.css" />
         <?php include 'option/jquery-ui-1.11.4.custom/DatepickerThai4.php';?>
         <!-- InstanceBeginEditable name="head" -->
-        <style type="text/css">
+<!--<style type="text/css">
 html{
 -moz-filter:grayscale(100%);
 -webkit-filter:grayscale(100%);
 filter:gray;
 filter:grayscale(100%);
 }
+</style>-->
+<style type="text/css">
+.black-ribbon {   position: fixed;   z-index: 9999;   width: 70px; }
+@media only all and (min-width: 768px) { .black-ribbon { width: auto; } }
+
+.stick-left { left: 0; }
+.stick-right { right: 0; }
+.stick-top { top: 0; }
+.stick-bottom { bottom: 0; }
 </style>
         <script type="text/javascript">
                         function popup(url,name,windowWidth,windowHeight){    
@@ -144,7 +153,8 @@ filter:grayscale(100%);
     </head>
 
     <body Onload="bodyOnload();">
-
+                <!-- Top Left -->
+<img src="https://goo.gl/Yl6KNg" class="black-ribbon stick-top stick-left"/>
         <div id="wrapper">
             <!-- Sidebar -->
             <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">

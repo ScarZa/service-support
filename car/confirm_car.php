@@ -144,7 +144,7 @@ WHERE ssc.car_id ='$car_id'");
                   if($detial_l['pay']=='Y'){?>
               <tr>
                 <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
-                <td colspan="3"><select name="car_type" id="car_type"  class="form-control"> 
+                <td colspan="3"><select name="car_type" id="car_type"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
 				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
 				 while( $result = mysqli_fetch_assoc( $sql ) ){
@@ -155,7 +155,7 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <tr>
                 <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control"> 
+                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
 				 echo "<option value=''>--เลือกรถยนต์--</option>";
 				 while( $result = mysqli_fetch_assoc( $sql ) ){
@@ -166,7 +166,7 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <tr>
                 <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
-                <td colspan="3"><select name="rider" id="rider"  class="form-control"> 
+                <td colspan="3"><select name="rider" id="rider"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT concat(firstname,' ',lastname) as fullname, empno  FROM emppersonal 
                                             where depid='23' order by empno");
 				 echo "<option value=''>--เลือกผู้ขับ--</option>";
@@ -195,7 +195,7 @@ WHERE ssc.car_id ='$car_id'");
               <?php if($_REQUEST['method']=='pay_car'){?>
               <tr>
                 <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
-                <td colspan="3"><select name="car_type" id="car_type"  class="form-control"> 
+                <td colspan="3"><select name="car_type" id="car_type"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
 				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
 				 while( $result = mysqli_fetch_assoc( $sql ) ){
@@ -207,7 +207,7 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <tr>
                 <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control"> 
+                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
 				 echo "<option value=''>--เลือกรถยนต์--</option>";
 				 while( $result = mysqli_fetch_assoc( $sql ) ){
@@ -219,7 +219,7 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <tr>
                 <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
-                <td colspan="3"><select name="rider" id="rider"  class="form-control"> 
+                <td colspan="3"><select name="rider" id="rider"  class="form-control" required> 
 				<?php	$sql = mysqli_query($db,"SELECT concat(firstname,' ',lastname) as fullname, empno  FROM emppersonal 
                                             where depid='23' order by empno");
 				 echo "<option value=''>--เลือกผู้ขับ--</option>";
