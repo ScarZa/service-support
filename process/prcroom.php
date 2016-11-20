@@ -80,7 +80,7 @@ AND (
 
    (start_time BETWEEN '".$start_time."' AND '".$end_time."')
    OR 
-   (end_time BETWEEN '".$$start_time."' AND '".$end_time."')
+   (end_time BETWEEN '".$start_time."' AND '".$end_time."')
    OR 
     ('".$start_time."' BETWEEN start_time  AND end_time)
    OR 

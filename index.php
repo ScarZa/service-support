@@ -492,8 +492,7 @@ where province='30' and((start_date between '$m_start' and '$m_end') AND
 
     <!-- Main content -->
     <section class="content">
-        NO LOGIN.           
-
+        <meta http-equiv='refresh' content='0;url=fullcalendar1_2.php' />
     </section>
 <?php } ?>
 
