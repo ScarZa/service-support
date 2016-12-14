@@ -176,15 +176,8 @@ if (isset($_SESSION['ss_id'])) {
                         $I++;
                     }
                     echo mysql_error();?>
-                    <!--<script src="report_rm/highcharts.js"></script>
-                    <script src="report_rm/exporting.js"></script>
-                    <script type="text/javascript" src="report_rm/jquery.js"></script>
-                    <script src="http://code.highcharts.com/highcharts.js"></script>
-                    <script src="http://code.highcharts.com/modules/exporting.js"></script>
-                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
                     <script src="option/Highcharts/js/highcharts.js"></script>
                     <script src="option/Highcharts/js/modules/exporting.js"></script>
-                    <script type="text/javascript" src="option/Highcharts/api/js/j"></script>
                     <script type="text/javascript">
                         $(function () {
                             var chart;
@@ -388,7 +381,7 @@ order by sscl.license_id");
                                         text: 'จำนวนการใช้รถในปีงบประมาณ <?= $years ?>'
                                     },
                                     tooltip: {
-                                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
                                         percentageDecimals: 1
                                     },
                                     plotOptions: {
@@ -448,7 +441,7 @@ where province='30' and((start_date between '$m_start' and '$m_end') AND
                                         text: 'จำนวนการใช้รถภายใน/ภายนอกจังหวัด <br> ในปีงบประมาณ <?= $years ?>'
                                     },
                                     tooltip: {
-                                        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
                                         percentageDecimals: 1
                                     },
                                     plotOptions: {
