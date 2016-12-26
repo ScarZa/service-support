@@ -16,7 +16,7 @@
        
         prevText: 'ก่อนหน้า',
         nextText: 'ถัดไป',
-        yearRange: '-45:+0',
+        yearRange: '-45:+5',
         buttonText: 'เลือก'
       
     };
