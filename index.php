@@ -162,14 +162,15 @@ if (isset($_SESSION['ss_id'])) {
                         $month_start;
                         echo "&nbsp;&nbsp;";
                         $month_end;
-                        
-                        for ($c = 0; $c <= $count_cl; $c++) {
+                        $C=0;
+                        for ($c = 1; $c <= $count_cl; $c++) {
                         $sql  = mysqli_query($db,"select if(ISNULL(sum(bath)),0,sum(bath)) as sum_oil from ss_detial_oil   
 						 where  license_id='$c' and reg_date between '$month_start' and '$month_end' order by license_id");
                         
                         $rs = mysqli_fetch_assoc($sql);
                        
-                        $countnum[$c].= $rs['sum_oil'] . ',';
+                        $countnum[$C].= $rs['sum_oil'] . ',';
+                        $C++;
                         }
                         $name.="'".$month['month_short']."'" . ',';
                         $I++;
