@@ -134,12 +134,11 @@ if (isset($_SESSION['ss_id'])) {
                         $count_license = mysqli_fetch_assoc($num_license);
                         $count_cl = $count_license['count_cl'];
                     
-                    for ($c = 1; $c <= $count_cl; $c++) {
-                    $sql2 = mysqli_query($db, "select license_name from ss_carlicense where license_id='$c'");
-                    $rs2 = mysqli_fetch_assoc($sql2);
-                    $name_license[$c].=$rs2['license_name'] . ',';
+                    $sql2 = mysqli_query($db, "select license_name from ss_carlicense ORDER BY license_id ASC");
+                    while ($rs2 = mysqli_fetch_assoc($sql2)){
+                    $name_license[].=$rs2['license_name'] . ',';
                     }
-                    $I = 10;
+                   $I = 10;
                     for ($i = -2; $i <= 9; $i++) {
 
                         $sqlMonth = mysqli_query($db,"select * from month where m_id='$i'");
@@ -164,7 +163,7 @@ if (isset($_SESSION['ss_id'])) {
                         echo "&nbsp;&nbsp;";
                         $month_end;
                         
-                        for ($c = 1; $c <= $count_cl; $c++) {
+                        for ($c = 0; $c <= $count_cl; $c++) {
                         $sql  = mysqli_query($db,"select if(ISNULL(sum(bath)),0,sum(bath)) as sum_oil from ss_detial_oil   
 						 where  license_id='$c' and reg_date between '$month_start' and '$month_end' order by license_id");
                         
@@ -218,7 +217,7 @@ if (isset($_SESSION['ss_id'])) {
                                         }
                                     },
                                     series: [
-                                    <?php for ($c = 1; $c <= $count_cl; $c++) {?>
+                                    <?php for ($c = 0; $c < $count_cl; $c++) {?>
                                     {
                                         
                                             name: '<?= $name_license[$c]?>',
