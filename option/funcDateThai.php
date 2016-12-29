@@ -63,7 +63,7 @@ $thai_month_arr=array(
     "11"=>"พฤศจิกายน",
     "12"=>"ธันวาคม"                 
 );
-function thai_date($time){//แสดงวันไทย วันที่ เวลา
+function thai_date($time){//แสดงวันไทย วันที่ เวลา ทำงานกับtimestamp
     global $thai_day_arr,$thai_month_arr;
     $thai_date_return="วัน".$thai_day_arr[date("w",$time)];
     $thai_date_return.= "ที่ ".date("j",$time);
