@@ -34,25 +34,25 @@ if (empty($_SESSION['ss_id'])) {
 <link rel="stylesheet" href="../option/css/stylelist.css">
 </head>
     <body>            
-<?php }
-echo	 "<p>&nbsp;</p>	"; 
-echo	 "<p>&nbsp;</p>	";
-echo "<div class='bs-example'>
+<?php }?>
+<p>&nbsp;</p><p>&nbsp;</p>
+<div class='bs-example'>
 	  <div class='progress progress-striped active'>
 	  <div class='progress-bar' style='width: 100%'></div>
-</div>";
-echo "<div class='alert alert-dismissable alert-success'>
+</div>
+<div class='alert alert-dismissable alert-success'>
 	  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 	  <a class='alert-link' target='_blank' href='#'><center>กำลังดำเนินการ</center></a> 
-</div>";
-    
+</div>
+<?php
+    date_default_timezone_set('Asia/Bangkok');
     $obj = $_POST['obj'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     if(empty($_POST['record_date'])){
-    $record_date=date('Y-m-d');
+    $record_date=date('Y-m-d H:m:s');
     }  else {
-     $record_date=$_POST['record_date'];   
+     $record_date=$_POST['record_date'].' '.date('H:m:s');   
 }
     $start_time = $_POST['take_hour_st'].":".$_POST['take_minute_st'];
     $end_time = $_POST['take_hour_en'].":".$_POST['take_minute_en'];

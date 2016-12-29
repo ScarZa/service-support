@@ -109,7 +109,7 @@ WHERE ssc.car_id ='$car_id'");
                   <td colspan="3">&nbsp;&nbsp; <?=$detial_l['dep'];?></td></tr>
               <tr>
                   <td align="right"><b>วันที่เขียนขอใช้รถยนต์ : </b></td>
-                  <td  colspan="3">&nbsp;&nbsp; <?=DateThai1($detial_l['request_date']);?></td>
+                  <td  colspan="3">&nbsp;&nbsp; <?= substr($detial_l['request_date'], 11,5)=='00:00'? DateThai1($detial_l['request_date']) : DateTimeThai($detial_l['request_date']).' น.';?> </td>
               </tr>
               <tr>
                   <td align="right" valign="top"><b>สถานที่ : </b></td>
