@@ -1,0 +1,5 @@
+ALTER TABLE `ss_car`
+MODIFY COLUMN `request_date`  datetime NOT NULL AFTER `amount`;
+
+ALTER TABLE `ss_conferance`
+MODIFY COLUMN `record_date`  datetime NOT NULL AFTER `start_date`;
