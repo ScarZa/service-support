@@ -136,7 +136,7 @@ if (isset($_SESSION['ss_id'])) {
                     
                     $sql2 = mysqli_query($db, "select license_name from ss_carlicense ORDER BY license_id ASC");
                     while ($rs2 = mysqli_fetch_assoc($sql2)){
-                    $name_license[].=$rs2['license_name'] . ',';
+                    $name_license[].=$rs2['license_name'];
                     }
                    $I = 10;
                     for ($i = -2; $i <= 9; $i++) {
@@ -358,8 +358,7 @@ if (isset($_SESSION['ss_id'])) {
 (ssc.end_date between '$m_start' and '$m_end')) and ssc.pay='Y' and approve='Y')use_car
 FROM ss_car ssc
 LEFT OUTER JOIN ss_carlicense sscl on sscl.license_id=ssc.license_plate
-WHERE sscl.license_id=ssc.license_plate and ((ssc.start_date between '$m_start' and '$m_end') AND
-(ssc.end_date between '$m_start' and '$m_end')) and ssc.pay='Y' and approve='Y'
+WHERE sscl.license_id=ssc.license_plate and ssc.pay='Y' and approve='Y'
 GROUP BY sscl.license_id  
 order by sscl.license_id");
 ?>
