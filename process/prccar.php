@@ -51,7 +51,7 @@ if (empty($_SESSION['ss_id'])) {
     $amphur=$_POST['amphur'];
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
-    $request_date=date('Y-m-d H:m:s');
+    $request_date=date('Y-m-d H:i:s');
     $start_time = $_POST['take_hour_st'].":".$_POST['take_minute_st'];
     $end_time = $_POST['take_hour_en'].":".$_POST['take_minute_en'];
     $amount_date = $_POST['amount_date'];

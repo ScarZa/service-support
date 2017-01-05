@@ -50,9 +50,9 @@ if (empty($_SESSION['ss_id'])) {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     if(empty($_POST['record_date'])){
-    $record_date=date('Y-m-d H:m:s');
+    $record_date=date('Y-m-d H:i:s');
     }  else {
-     $record_date=$_POST['record_date'].' '.date('H:m:s');   
+     $record_date=$_POST['record_date'].' '.date('H:i:s');   
 }
     $start_time = $_POST['take_hour_st'].":".$_POST['take_minute_st'];
     $end_time = $_POST['take_hour_en'].":".$_POST['take_minute_en'];
