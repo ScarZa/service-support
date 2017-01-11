@@ -54,8 +54,9 @@
                     $this_year=$Y;
                     $next_year=$y;
                  }else{
+                     include 'option/function_date.php';
                     if($date >= $bdate and $date <= $edate){
-    include 'option/function_date.php';
+    
     $this_year=$y;
     $next_year=$Yy;
 }  else {
