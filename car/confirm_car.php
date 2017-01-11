@@ -143,30 +143,11 @@ WHERE ssc.car_id ='$car_id'");
               <?php if(!empty($detial_l['pay'])) {
                   if($detial_l['pay']=='Y'){?>
               <tr>
-                <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
-                <td colspan="3"><select name="car_type" id="car_type"  class="form-control" required> 
-				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
-				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
-				 while( $result = mysqli_fetch_assoc( $sql ) ){
-          if($result['cartype_id']==$detial_l['car_type']){$selected='selected';}else{$selected='';}
-				 echo "<option value='".$result['cartype_id']."' $selected>".$result['cartype_name'] ."</option>";
-				 } ?>
-			 </select></td>
-              </tr>
-              <tr>
-                <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" required> 
-				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
-				 echo "<option value=''>--เลือกรถยนต์--</option>";
-				 while( $result = mysqli_fetch_assoc( $sql ) ){
-          if($result['license_id']==$detial_l['license_plate']){$selected='selected';}else{$selected='';}
-				 echo "<option value='".$result['license_id']."' $selected>".$result['license_name'] ."</option>";
-				 } ?>
-			 </select></td>
-              </tr>
-              <tr>
+                    <?php include "car_type.php";?>
+                  </tr>
+              <tr><?php $readonly=$detial_l['approve']=='Y' ? 'readonly':'';?>
                 <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
-                <td colspan="3"><select name="rider" id="rider"  class="form-control" required> 
+                <td colspan="3"><select name="rider" id="rider"  class="form-control" <?=$readonly?> required> 
 				<?php	$sql = mysqli_query($db,"SELECT concat(firstname,' ',lastname) as fullname, empno  FROM emppersonal 
                                             where depid='23' order by empno");
 				 echo "<option value=''>--เลือกผู้ขับ--</option>";
@@ -193,30 +174,9 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <?php }?>
               <?php if($_REQUEST['method']=='pay_car'){?>
-              <tr>
-                <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
-                <td colspan="3"><select name="car_type" id="car_type"  class="form-control" required> 
-				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
-				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
-				 while( $result = mysqli_fetch_assoc( $sql ) ){
-          if($result['cartype_id']==$edit_person['car_type']){$selected='selected';}else{$selected='';}
-				 echo "<option value='".$result['cartype_id']."' $selected>".$result['cartype_name'] ."</option>";
-				 } ?>
-			 </select>
-                </td>
-              </tr>
-              <tr>
-                <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" required> 
-				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense");
-				 echo "<option value=''>--เลือกรถยนต์--</option>";
-				 while( $result = mysqli_fetch_assoc( $sql ) ){
-          if($result['license_id']==$edit_person['license_plate']){$selected='selected';}else{$selected='';}
-				 echo "<option value='".$result['license_id']."' $selected>".$result['license_name'] ."</option>";
-				 } ?>
-			 </select>
-                </td>
-              </tr>
+                                <tr>
+                    <?php include "car_type.php";?>
+                  </tr>
               <tr>
                 <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
                 <td colspan="3"><select name="rider" id="rider"  class="form-control" required> 
