@@ -267,7 +267,7 @@ order by ssc.car_id desc";
                     </tbody>
                 </table>
                     <div class="browse_page">
-                    <?php if ($total > 0) {
+                    <?php if ($total2 > 0) {
                     echo mysqli_error($db);
                         // เรียกใช้งานฟังก์ชั่น สำหรับแสดงการแบ่งหน้า   
                         page_navigator($before_p2, $plus_p2, $total2, $total_p2, $chk_page);
