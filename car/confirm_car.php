@@ -23,7 +23,27 @@
 <!-- Page Specific CSS -->
 <link rel="stylesheet" href="../option/css/morris-0.4.3.min.css">
 <link rel="stylesheet" href="../option/css/stylelist.css">
+<script src="../option/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 </head>
+<script type="text/javascript">
+    $(function (){
+       $(function (){
+           $("#show").hide(0);
+       }); 
+       $("#pay").click(
+               function (){
+                    $("#car_rider").removeAttr("disabled");
+                    $("#car_type").removeAttr("disabled");
+                    $("#license_plate").removeAttr("disabled");
+                    $("#show").show("fast"); 
+           
+       }); 
+       $("#notpay").click(
+               function (){
+           $("#show").hide(0);         
+       });
+    });
+</script>
     <body>            
         <form class="navbar-form" role="form" action='../process/prccar.php' enctype="multipart/form-data" method='post' onSubmit="return Check_txt()">
         <div class="row">
@@ -34,6 +54,7 @@
                 <h3 class="panel-title"> ยืนยันการอนมัติใช้รถยนต์</h3>
             </div>
             <div class="panel-body" align='center'>
+                
                 <div class="well well-sm">
                 <b>ยืนยันการอนมัติใช้รถยนต์</b>
                 <div class="form-group">
@@ -50,7 +71,7 @@
                 <b>ยืนยันการจ่ายรถยนต์</b>
                 <div class="form-group">
                     <input type="radio" name="pay" id="pay" value="Y" required>&nbsp;&nbsp; จ่าย<br> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="pay" id="pay" value="N" required>&nbsp;&nbsp; ไม่จ่าย
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="pay" id="notpay" value="N" required>&nbsp;&nbsp; ไม่จ่าย
                 </div>
                 </div>
                 <?php }else{ ?>
@@ -93,7 +114,7 @@ WHERE ssc.car_id ='$car_id'");
                                 $sql_mile=  mysqli_query($db, "select befor_mile, after_mile from ss_car where car_id='$car_id'");
                                 $edit_mile= mysqli_fetch_assoc($sql_mile);
                             }
-                        ?>
+                            ?>
                         <table align="center" width='100%'>
                         <thead>
                             <tr>
@@ -140,8 +161,10 @@ WHERE ssc.car_id ='$car_id'");
                 <td align="right"><B>การใช้รถครั้งนี่ขอให้ : </b></td>
                 <td colspan="3">&nbsp;&nbsp; <?php if($detial_l['wait']=='Y'){echo 'รอรับ';}elseif ($detial_l['wait']=='N') {echo 'ไม่ต้องรอรับ';}?></td>
               </tr>
-              <?php if(!empty($detial_l['pay'])) {
-                  if($detial_l['pay']=='Y'){?>
+              <?php if(!empty($detial_l['pay'])) {?>
+              
+                <?php  if($detial_l['pay']=='Y'){?>
+                     
               <tr>
                     <?php include "car_type.php";?>
                   </tr>
@@ -162,6 +185,7 @@ WHERE ssc.car_id ='$car_id'");
                 <td align="right" valign="top"><b>ความคิดเห็นเพิ่มเติม : </b></td>
                 <td colspan="3">&nbsp;&nbsp; <?=$detial_l['other'];?></td>
               </tr>
+              
               <?php }?>
               <?php if(!is_null($detial_l['befor_mile']) and !is_null($detial_l['after_mile'])) {?>
               <tr>
@@ -174,12 +198,15 @@ WHERE ssc.car_id ='$car_id'");
               </tr>
               <?php }?>
               <?php if($_REQUEST['method']=='pay_car'){?>
+              <tr><td colspan="4">
+                  <div id="show">
+                       <table width='100%' border="0"><tr><td colspan="4">
                                 <tr>
                     <?php include "car_type.php";?>
                   </tr>
               <tr>
-                <td align="right" valign="top"><B>ผู้ขับคือ : </b></td>
-                <td colspan="3"><select name="rider" id="rider"  class="form-control" required> 
+                <td width='50%' align="right" valign="top"><B>ผู้ขับคือ : </b></td>
+                <td colspan="3"><select name="rider" id="car_rider"  class="form-control" disabled="disabled" required> 
 				<?php	$sql = mysqli_query($db,"SELECT concat(firstname,' ',lastname) as fullname, empno  FROM emppersonal 
                                             where depid='23' order by empno");
 				 echo "<option value=''>--เลือกผู้ขับ--</option>";
@@ -190,6 +217,10 @@ WHERE ssc.car_id ='$car_id'");
 			 </select>
                 </td>
               </tr>
+              
+              </td></tr></table>
+                  </div>
+                  </td></tr>
               <tr>
                 <td align="right" valign="top"><b>ความคิดเห็นเพิ่มเติม : </b></td>
                 <td colspan="3"><input name="other" type="text" class="form-control" placeholder='แสดงความคิดเห็น'></td>

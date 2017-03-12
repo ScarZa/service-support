@@ -12,28 +12,22 @@
 	<script language="JavaScript">
 
 function Check_txt(){
-	if(document.getElementById('car_type').value==""){
+	if(document.getElementById('car_type').value=="1"){
 		alert("กรุณาระบุ ชนิดของรถยนต์ด้วย ด้วย");
 		document.getElementById('car_type').focus();
 		return false;
 	}
-	if(document.getElementById('license_plate').value=='No'){
+	if(document.getElementById('license_plate').value=="1"){
 		alert("กรุณาระบุ ทะเบียนรถด้วย ด้วย");
 		document.getElementById('license_plate').focus();
 		return false;
 	}
-	
-	if(document.getElementById('district').value==""){
-		alert("กรุณาระบุ ตำบล ด้วย");
-		document.getElementById('district').focus();
-		return false;
-	}
 }
 </script>
-    <td align="right" valign="top"><B>ใช้รถประเภท : </b></td>
+    <td width='50%' align="right" valign="top"><B>ใช้รถประเภท : </b></td>
                     <?php //if($_SESSION['ss_status']=='ADMIN'){?>
     <td colspan="3"> <?php $readonly=$detial_l['approve']=='Y' ? 'readonly':'';?>
-	<select name="car_type" id="car_type" class='form-control' onchange="data_show(this.value,'license_plate');" <?=$readonly?> required >
+        <select name="car_type" id="car_type" class='form-control' onchange="data_show(this.value,'license_plate');" <?=$readonly?> disabled required>
 			<?php 
                         $sql = mysqli_query($db,"SELECT *  FROM ss_car_type");
 				 echo "<option value=''>--เลือกประเภทรถยนต์--</option>";
@@ -45,7 +39,7 @@ function Check_txt(){
                                 </td>
     <tr>
         <td align="right" valign="top"><B>หมายเลขทะเบียน : </b></td>
-                <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" <?=$readonly?> required> 
+        <td colspan="3"><select name="license_plate" id="license_plate"  class="form-control" <?=$readonly?> disabled required> 
                         <?php if($detial_l['pay']=='Y'){ ?>
 				<?php	$sql = mysqli_query($db,"SELECT *  FROM ss_carlicense where cartype_id='".$detial_l['car_type']."'");
 				 echo "<option value=''>--เลือกรถยนต์--</option>";
