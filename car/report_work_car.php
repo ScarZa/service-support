@@ -111,8 +111,10 @@
 (select count(ssc.car_id) from ss_car ssc where ssc.province!='30' and pay='Y' and approve='Y' and cl.license_id=ssc.license_plate and ssc.start_date between '$take_month1' and '$take_month2' )count_out_province,
 (select sum(ssc.distance) from ss_car ssc where ssc.province!='30' and pay='Y' and approve='Y' and cl.license_id=ssc.license_plate and ssc.start_date between '$take_month1' and '$take_month2')sum_out_province,
 (select sum(ssc.distance) from ss_car ssc where pay='Y' and approve='Y' and cl.license_id=ssc.license_plate and ssc.start_date between '$take_month1' and '$take_month2')sum_distance,
-(select sum(do.liter) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2')oil,
-(select sum(do.bath) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2')bath,
+(select sum(do.liter) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2' and do.other='2')oil_bill,
+(select sum(do.bath) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2' and do.other='2')bath_bill,
+(select sum(do.liter) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2' and do.other='1')oil,
+(select sum(do.bath) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2' and do.other='1')bath,
 (select round((select sum(ssc.distance) from ss_car ssc where pay='Y' and approve='Y' and cl.license_id=ssc.license_plate and ssc.start_date between '$take_month1' and '$take_month2')/
 (select sum(do.liter) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2'),2))av,
 (select sum(do.maintenance) from ss_detial_oil do where do.license_id=cl.license_id and do.reg_date between '$take_month1' and '$take_month2') maintenance   
@@ -129,28 +131,34 @@ group by cl.license_id";
                 <table  id="datatable"  align="center" width="100%" class="table table-responsive table-bordered table-hover">
                     <thead>
                     <tr align="center">
-                        <td colspan="14"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของงานยานพาหนะ</h4></td>
+                        <td colspan="13"><h4>ข้อมูลรายละเอียดผลการปฏิบัติงานของงานยานพาหนะ</h4></td>
                     </tr>
                     <tr align="center">
-                        <td colspan="14"><b>ปีงบประมาณ <?= $years?>  ประจำเดือน <?= $month['month_name']?></b></td>
+                        <td colspan="13"><b>ปีงบประมาณ <?= $years?>  ประจำเดือน <?= $month['month_name']?></b></td>
                     </tr>
                     <tr align="center" >
-                        <td width="10%" rowspan="2" align="center" bgcolor="#898888"><b>ทะเบียนรถ</b></td>
-                        <td colspan="2" align="center" bgcolor="#898888"><b>ใช้บริการภายในจังหวัด</b></td>
-                        <td colspan="2" align="center" bgcolor="#898888"><b>ใช้บริการนอกเขตจังหวัด</b></td>
-                        <td width="8%" rowspan="2" align="center" bgcolor="#898888"><b>รวมระยะทาง</b></td>
-                         <td colspan="3" align="center" bgcolor="#898888"><b>ข้อมูลน้ำมันเชื้อเพลิง</b></td>
-                        <td width="8%" rowspan="2" align="center" bgcolor="#898888"><b>ค่าเฉลี่ย (กม./ลิตร)</b></td>
-                        <td width="10%" rowspan="2" align="center" bgcolor="#898888"><b>ค่าซ่อมบำรุง</b></td>
+                        <td width="10%" rowspan="3" align="center" bgcolor="#898888"><b>ทะเบียนรถ</b></td>
+                        <td rowspan="2" colspan="2" align="center" bgcolor="#898888"><b>ใช้บริการภายในจังหวัด</b></td>
+                        <td rowspan="2" colspan="2" align="center" bgcolor="#898888"><b>ใช้บริการนอกเขตจังหวัด</b></td>
+                        <td width="8%" rowspan="3" align="center" bgcolor="#898888"><b>รวมระยะทาง</b></td>
+                         <td colspan="5" align="center" bgcolor="#898888"><b>ข้อมูลน้ำมันเชื้อเพลิง</b></td>
+                        <td width="8%" rowspan="3" align="center" bgcolor="#898888"><b>ค่าเฉลี่ย (กม./ลิตร)</b></td>
+                        <td width="10%" rowspan="3" align="center" bgcolor="#898888"><b>ค่าซ่อมบำรุง</b></td>
+                     </tr>
+                     <tr align="center">
+                         <td rowspan="2" width="8%" align="center" bgcolor="#898888"><b>ชนิด</b></td>
+                         <td colspan="2" align="center" bgcolor="#898888"><b>บิล</b></td>
+                         <td colspan="2" align="center" bgcolor="#898888"><b>เงินสด</b></td>
                      </tr>
                     <tr align="center">
-                      <td width="8%" align="center" bgcolor="#898888"><strong>จำนวนครั้ง</strong></td>
+                      <td width="8%" align="center" bgcolor="#898888"><strong>ครั้ง</strong></td>
                       <td width="8%" align="center" bgcolor="#898888"><strong>ระยะทาง</strong></td>
-                      <td width="8%" align="center" bgcolor="#898888"><strong>จำนวนครั้ง</strong></td>
+                      <td width="8%" align="center" bgcolor="#898888"><strong>ครั้ง</strong></td>
                       <td width="8%" align="center" bgcolor="#898888"><strong>ระยะทาง</strong></td>
-                        <td width="8%" align="center" bgcolor="#898888"><b>ชนิด</b></td>
-                        <td width="8%" align="center" bgcolor="#898888"><strong>จำนวนลิตร</strong></td>
-                        <td width="8%" align="center" bgcolor="#898888"><b>จำนวนเงิน</b></td>
+                        <td width="8%" align="center" bgcolor="#898888"><strong>ลิตร</strong></td>
+                        <td width="8%" align="center" bgcolor="#898888"><b>บาท</b></td>
+                        <td width="8%" align="center" bgcolor="#898888"><strong>ลิตร</strong></td>
+                        <td width="8%" align="center" bgcolor="#898888"><b>บาท</b></td>
                     </tr>
                     </thead>
                     <tbody>
@@ -166,16 +174,49 @@ group by cl.license_id";
                             <td align="center"><?= $result['sum_out_province'] ?></td>
                             <td align="center"><?= $result['sum_distance'] ?></td>
                             <td align="center"><?= $result['oil_name']?></td>
+                            <td align="center"><?= $result['oil_bill'] ?></td>
+                            <td align="center"><?= $result['bath_bill'] ?></td>
                             <td align="center"><?= $result['oil'] ?></td>
                             <td align="center"><?= $result['bath'] ?></td>
                             <td align="center"><?= $result['av'] ?></td>
                             <td align="center"><?= $result['maintenance']; ?></td>
                            
                         </tr>
-                    <?php $i++;
+                    <?php 
+                    $info[0]=$info[0]+$result['count_in_province'];
+                    $info[1]=$info[1]+$result['sum_in_province'];
+                    $info[2]=$info[2]+$result['count_out_province'];
+                    $info[3]=$info[3]+$result['sum_out_province'];
+                    $info[4]=$info[4]+$result['sum_distance'];
+                    $info[5]=$info[5]+$result['oil_bill'];
+                    $info[6]=$info[6]+$result['bath_bill'];
+                    $info[7]=$info[7]+$result['oil'];
+                    $info[8]=$info[8]+$result['bath'];
+                    $info[9]=$info[9]+$result['av'];
+                    $info[10]=$info[10]+$result['maintenance'];
+                    $i++;
+                    
                     }}
                 ?>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th style="background-color: #898888" align="center">รวม</th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[0]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[1]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[2]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[3]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[4]?></th>
+                            <td style="background-color: #dad55e" align="center"></td>
+                            <th style="background-color: #dad55e" align="center"><?=$info[5]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[6]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[7]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[8]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[9]?></th>
+                            <th style="background-color: #dad55e" align="center"><?=$info[10]?></th>
+                            
+                        </tr>
+                    </tfoot>
                 </table>
 </div>
             </div>
